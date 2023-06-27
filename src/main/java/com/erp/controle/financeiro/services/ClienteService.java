@@ -41,7 +41,6 @@ public class ClienteService {
 		catch (DataIntegrityViolationException e) {
 			throw new DatabaseException(e.getMessage());
 		}
-
 	}
 	
 	public Cliente update(Long id, Cliente obj) {
