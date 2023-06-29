@@ -61,7 +61,6 @@ public class ClienteService {
 		entity.setCliContato(obj.getCliContato());
 		entity.setCliEmail(obj.getCliEmail());
 		entity.setCliRazaoSocial(obj.getCliRazaoSocial());
-		entity.setCliNomeFantasia(obj.getCliNomeFantasia());
 		entity.setCliEndereco(obj.getCliEndereco());
 		entity.setCliSegmento(obj.getCliSegmento());
 		entity.setCliFlag(obj.getCliFlag());

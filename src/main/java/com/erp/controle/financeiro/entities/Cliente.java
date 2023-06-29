@@ -71,16 +71,6 @@ public class Cliente implements Serializable {
 
     @Getter
     @Setter
-    @Column(length = 45, name = "CLI_NOME_FANTASIA")
-    private String cliNomeFantasia;
-
-    @Getter
-    @Setter
-    @Column(length = 45, name = "CLI_ENDERECO")
-    private String cliEndereco;
-
-    @Getter
-    @Setter
     @Column(length = 45, name = "CLI_SEGMENTO")
     private String cliSegmento;
 
@@ -100,7 +90,7 @@ public class Cliente implements Serializable {
     }
 
     public Cliente(Long cliId, String cliNome, String cliTipo, String cliCpfCnpj, Date cliDataNascimento,
-                   String cliContato, String cliEmail, String cliRazaoSocial, String cliNomeFantasia, String cliEndereco,
+                   String cliContato, String cliEmail, String cliRazaoSocial,
                    String cliSegmento, String cliFlag) {
         super();
         this.cliId = cliId;
@@ -111,8 +101,6 @@ public class Cliente implements Serializable {
         this.cliContato = cliContato;
         this.cliEmail = cliEmail;
         this.cliRazaoSocial = cliRazaoSocial;
-        this.cliNomeFantasia = cliNomeFantasia;
-        this.cliEndereco = cliEndereco;
         this.cliSegmento = cliSegmento;
         this.cliFlag = cliFlag;
     }
