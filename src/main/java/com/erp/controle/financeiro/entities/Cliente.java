@@ -104,6 +104,4 @@ public class Cliente implements Serializable {
         this.cliSegmento = cliSegmento;
         this.cliFlag = cliFlag;
     }
-
-
 }
