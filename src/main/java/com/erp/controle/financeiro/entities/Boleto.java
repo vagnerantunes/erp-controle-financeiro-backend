@@ -2,6 +2,7 @@ package com.erp.controle.financeiro.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,7 +41,7 @@ public class Boleto implements Serializable{
 	@Getter
 	@Setter
 	@Column(name = "BOL_DATA")
-	private Instant bolData;
+	private Date bolData;
 	
 	@Getter
 	@Setter
@@ -70,7 +71,7 @@ public class Boleto implements Serializable{
 	public Boleto() {
 	}
 
-	public Boleto(Long bolId, String bolDescricao, Instant bolData, Double bolValor, Integer bolQtdParcela,
+	public Boleto(Long bolId, String bolDescricao, Date bolData, Double bolValor, Integer bolQtdParcela,
 			String bolContaPfPj, String bolObs) {
 		super();
 		this.bolId = bolId;

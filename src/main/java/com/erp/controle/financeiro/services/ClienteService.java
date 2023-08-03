@@ -21,7 +21,6 @@ import com.erp.controle.financeiro.services.exceptions.ResourceNotFoundException
 
 @Service
 public class ClienteService {
-
 	@Autowired
 	private ClienteRepository repository;
 

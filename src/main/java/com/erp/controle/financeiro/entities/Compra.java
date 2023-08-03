@@ -2,6 +2,7 @@ package com.erp.controle.financeiro.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,7 +43,7 @@ public class Compra implements Serializable{
 	@Getter
 	@Setter
 	@Column(name = "COM_DATA")
-	private Instant comData;
+	private Date comData;
 	
 	@Getter
 	@Setter
@@ -58,7 +59,9 @@ public class Compra implements Serializable{
 	@Setter
 	@Column(name = "COM_JUROS")
 	private Double comJuros;
-	
+
+	@Getter
+	@Setter
 	@Column(name = "COM_STS_DOC")
 	private Integer comStsDoc;
 	
@@ -69,7 +72,7 @@ public class Compra implements Serializable{
 	public Compra() {		
 	}
 
-	public Compra(Long comId, Fornecedor comForId, Instant comData, Double comValorTotal, Double comDesconto,
+	public Compra(Long comId, Fornecedor comForId, Date comData, Double comValorTotal, Double comDesconto,
 			Double comJuros, Integer comStsDoc) {
 		super();
 		this.comId = comId;
@@ -81,15 +84,6 @@ public class Compra implements Serializable{
 		this.comStsDoc = comStsDoc;
 	}
 
-	public DocumentoStatus getComStsDoc() {
-		return DocumentoStatus.valueOf(comStsDoc);
-		
-	}
 
-	public void setComStsDoc(DocumentoStatus cOM_STS_DOC) {
-		if(cOM_STS_DOC != null) {
-			this.comStsDoc = cOM_STS_DOC.getCodigo();
-		}
-	}
 	
 }

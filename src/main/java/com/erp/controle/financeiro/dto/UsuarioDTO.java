@@ -11,56 +11,29 @@
 package com.erp.controle.financeiro.dto;
 
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import com.erp.controle.financeiro.entities.Usuario;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.Setter;
-
+@Getter
+@Setter
 public class UsuarioDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter
-	@Setter	
-	private Long USU_ID;
-	
-	@Column(length = 45, nullable = false)
-	@Getter
-	@Setter
-	private String USU_NOME;
-	
-	@Column(length = 1, nullable = false)
-	@Getter
-	@Setter
-	private String USU_FLAG;
-	
-	@Column(length = 15, nullable = false)
-	@Getter
-	@Setter
-	private String USU_FUNCAO;
-	
-	@JsonIgnore //ignora a listagem de senha por questão de segurança	
-	@Getter
-	@Setter
-	private String USU_SENHA;
+
+	private Long usuId;
+	private String usuNome;
+	private String usuFlag;
+	private String usuFuncao;
+	private String usuSenha;
+
 
 	public UsuarioDTO() {		
-	}		
-	
-	public UsuarioDTO(Usuario obj) {
-		USU_ID = obj.getUSU_ID();
-		USU_NOME = obj.getUSU_NOME();
-		USU_FLAG = obj.getUSU_FLAG();
-		USU_FUNCAO = obj.getUSU_FUNCAO();
-		USU_SENHA = obj.getUSU_SENHA();
+	}
+
+	public UsuarioDTO(Long usuId, String usuNome, String usuFlag, String usuFuncao, String usuSenha) {
+		this.usuId = usuId;
+		this.usuNome = usuNome;
+		this.usuFlag = usuFlag;
+		this.usuFuncao = usuFuncao;
+		this.usuSenha = usuSenha;
 	}
 }
