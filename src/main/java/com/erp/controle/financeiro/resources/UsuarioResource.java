@@ -42,7 +42,8 @@ public class UsuarioResource {
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<UsuarioDTO>> getAllUsuariosPage(@RequestParam(defaultValue = "0") int pageNumber,
 															   @RequestParam(defaultValue = "10") int pageSize, @RequestParam(defaultValue = "usuId") String sortBy,
-															   @RequestParam(defaultValue = "asc") String sortOrder) {
+															   @RequestParam(defaultValue = "asc") String sortOrder,
+															   @RequestParam(defaultValue = "") String globalFilter) {
 
 		Sort.Direction sortDirection = sortOrder.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
 		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortDirection, sortBy));

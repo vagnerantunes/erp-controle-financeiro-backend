@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.erp.controle.financeiro.entities.Fornecedor;
 import com.erp.controle.financeiro.services.FornecedorService;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/fornecedores")
 public class FornecedorResource {

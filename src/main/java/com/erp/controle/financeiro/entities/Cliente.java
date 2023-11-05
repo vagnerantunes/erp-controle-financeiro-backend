@@ -86,7 +86,6 @@ public class Cliente implements Serializable {
     private List<Venda> vendas = new ArrayList<>();
 
     public Cliente() {
-
     }
 
     public Cliente(Long cliId, String cliNome, String cliTipo, String cliCpfCnpj, Date cliDataNascimento,

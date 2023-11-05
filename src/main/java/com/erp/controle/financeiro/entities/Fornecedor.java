@@ -15,7 +15,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_fornecedor")
 public class Fornecedor implements Serializable{
-
 	private static final long serialVersionUID = 1L;
 	
 	@Getter
@@ -27,61 +26,36 @@ public class Fornecedor implements Serializable{
 	
 	@Getter
 	@Setter	
-	@Column(name = "FOR_NOME")
-	private String forNome;
-	
+	@Column(name = "FOR_RAZAO_SOCIAL")
+	private String forRazaoSocial;
+
 	@Getter
-	@Setter	
-	@Column(name = "FOR_TIPO")
-	private String forTipo;
-	
-	@Getter
-	@Setter	
-	@Column(name = "FOR_CPF_CNPJ")
-	private String forCpfCnpj;
-	
-	@Getter
-	@Setter	
+	@Setter
 	@Column(name = "FOR_FANTASIA")
 	private String forFantasia;
 	
 	@Getter
-	@Setter
-	@Column(name = "FOR_ENDERECO")
-	private String forEndereco;
-	
+	@Setter	
+	@Column(name = "FOR_CNPJ")
+	private String forCnpj;
+
 	@Getter
 	@Setter
-	@Column(name = "FOR_CONTATO")
-	private String forContato;
-	
-	@Getter
-	@Setter
-	@Column(name = "FOR_EMAIL")
-	private String forEmail;
+	@Column(name = "FOR_OBS")
+	private String forObs;
 	
 	@Getter
 	@Setter
 	@Column(name = "FOR_FLAG")
 	private String forFlag;
-
-
 	public Fornecedor() {
-		super();
 	}
 
-
-	public Fornecedor(Long forId, String forNome, String forTipo, String forCpfCnpj, String forFantasia,
-			String forEndereco, String forContato, String forEmail, String forFlag) {
-		super();
+	public Fornecedor(Long forId, String forRazaoSocial, String forFantasia, String forCnpj, String forFlag) {
 		this.forId = forId;
-		this.forNome = forNome;
-		this.forTipo = forTipo;
-		this.forCpfCnpj = forCpfCnpj;
+		this.forRazaoSocial = forRazaoSocial;
 		this.forFantasia = forFantasia;
-		this.forEndereco = forEndereco;
-		this.forContato = forContato;
-		this.forEmail = forEmail;
+		this.forCnpj = forCnpj;
 		this.forFlag = forFlag;
 	}
 

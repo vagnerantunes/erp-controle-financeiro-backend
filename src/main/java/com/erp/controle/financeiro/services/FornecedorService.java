@@ -20,76 +20,57 @@ import com.erp.controle.financeiro.services.exceptions.ResourceNotFoundException
 public class FornecedorService {
 	@Autowired
 	private FornecedorRepository repository;
-
 	public List<FornecedorDTO> getAllFornecedors() {
 		List<Fornecedor> fornecedors = repository.findAll();
 		return fornecedors.stream().map(this::convertToDTO).collect(Collectors.toList());
 	}
-
 	public Page<FornecedorDTO> getAllFornecedorsPage(Pageable pageable) {
 		Page<Fornecedor> fornecedorPage = repository.findAll(pageable);
 		return fornecedorPage.map(this::convertToDTO);
 	}
-
 	public Optional<FornecedorDTO> getFornecedorById(Long id) {
 		return repository.findById(id).map(this::convertToDTO);
 	}
-
 	public FornecedorDTO addFornecedor(FornecedorDTO fornecedorDTO) {
 		Fornecedor fornecedor = convertToEntity(fornecedorDTO);
 		Fornecedor savedFornecedor = repository.save(fornecedor);
 		return convertToDTO(savedFornecedor);
 	}
-
 	public boolean updateFornecedor(Long id, FornecedorDTO fornecedorDTO) {
 		Optional<Fornecedor> optionalFornecedor = repository.findById(id);
 		if (optionalFornecedor.isPresent()) {
 			Fornecedor fornecedor = optionalFornecedor.get();
-			fornecedor.setForNome(fornecedorDTO.getForNome());
-			fornecedor.setForTipo(fornecedorDTO.getForTipo());
-			fornecedor.setForCpfCnpj(fornecedorDTO.getForCpfCnpj());
+			fornecedor.setForRazaoSocial(fornecedorDTO.getForRazaoSocial());
 			fornecedor.setForFantasia(fornecedorDTO.getForFantasia());
-			fornecedor.setForEndereco(fornecedorDTO.getForEndereco());
-			fornecedor.setForContato(fornecedorDTO.getForContato());
-			fornecedor.setForEmail(fornecedorDTO.getForEmail());
+			fornecedor.setForCnpj(fornecedorDTO.getForCnpj());
+			fornecedor.setForObs(fornecedorDTO.getForObs());
 			fornecedor.setForFlag(fornecedorDTO.getForFlag());
 			repository.save(fornecedor);
 			return true;
 		}
 		return false;
 	}
-
 	public void deleteFornecedor(Long id) {
 		repository.deleteById(id);
 	}
-
 	private FornecedorDTO convertToDTO(Fornecedor fornecedor) {
 		FornecedorDTO fornecedorDTO = new FornecedorDTO();
 		fornecedorDTO.setForId(fornecedor.getForId());
-		fornecedorDTO.setForNome(fornecedor.getForNome());
-		fornecedorDTO.setForTipo(fornecedor.getForTipo());
-		fornecedorDTO.setForCpfCnpj(fornecedor.getForCpfCnpj());
+		fornecedorDTO.setForRazaoSocial(fornecedor.getForRazaoSocial());
 		fornecedorDTO.setForFantasia(fornecedor.getForFantasia());
-		fornecedorDTO.setForEndereco(fornecedor.getForEndereco());
-		fornecedorDTO.setForContato(fornecedor.getForContato());
-		fornecedorDTO.setForEmail(fornecedor.getForEmail());
+		fornecedorDTO.setForCnpj(fornecedor.getForCnpj());
+		fornecedorDTO.setForObs(fornecedor.getForObs());
 		fornecedorDTO.setForFlag(fornecedor.getForFlag());
 		return fornecedorDTO;
 	}
-
 	private Fornecedor convertToEntity(FornecedorDTO fornecedorDTO) {
 		Fornecedor fornecedor = new Fornecedor();
 		fornecedor.setForId(fornecedorDTO.getForId());
-		fornecedor.setForNome(fornecedorDTO.getForNome());
-		fornecedor.setForTipo(fornecedorDTO.getForTipo());
-		fornecedor.setForCpfCnpj(fornecedorDTO.getForCpfCnpj());
+		fornecedor.setForRazaoSocial(fornecedorDTO.getForRazaoSocial());
 		fornecedor.setForFantasia(fornecedorDTO.getForFantasia());
-		fornecedor.setForEndereco(fornecedorDTO.getForEndereco());
-		fornecedor.setForContato(fornecedorDTO.getForContato());
-		fornecedor.setForEmail(fornecedorDTO.getForEmail());
+		fornecedor.setForCnpj(fornecedorDTO.getForCnpj());
+		fornecedor.setForObs(fornecedorDTO.getForObs());
 		fornecedor.setForFlag(fornecedorDTO.getForFlag());
 		return fornecedor;
 	}
-
-
 }
