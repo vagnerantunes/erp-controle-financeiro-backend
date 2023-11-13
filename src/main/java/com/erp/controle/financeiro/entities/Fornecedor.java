@@ -25,6 +25,11 @@ public class Fornecedor implements Serializable{
 	@Setter
 	@OneToMany(mappedBy="enfForId", cascade=CascadeType.ALL)
 	private List<EnderecoFornecedor> enderecos = new ArrayList<>();
+
+	@Getter
+	@Setter
+	@OneToMany(mappedBy="conForId", cascade=CascadeType.ALL)
+	private List<Contato> contatos = new ArrayList<>();
 	
 	@Getter
 	@Setter	

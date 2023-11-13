@@ -3,6 +3,7 @@ package com.erp.controle.financeiro.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 
 @Getter
@@ -24,7 +25,10 @@ public class FornecedorNewDTO implements Serializable {
     private String enfCep;
     private String enfPais;
     private String enfObs;
-
+    private String conDDD;
+    private String conNumero;
+    private String conEmail;
+    private String conObs;
     public FornecedorNewDTO() {
     }
 

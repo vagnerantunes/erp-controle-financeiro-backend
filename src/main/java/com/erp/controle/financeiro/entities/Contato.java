@@ -1,5 +1,6 @@
 package com.erp.controle.financeiro.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,11 @@ public class Contato implements Serializable {
     @Setter
     @Column(name = "CON_ID")
     private Long conId;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "CON_FOR_ID")
+    private Fornecedor conForId;
 
     @Getter
     @Setter
@@ -37,4 +43,14 @@ public class Contato implements Serializable {
     @Column(length = 100, name = "CON_OBS")
     private String conObs;
 
+    public Contato() {
+    }
+    public Contato(Long conId, Fornecedor conForId, String conDDD, String conNumero, String conEmail, String conObs) {
+        this.conId = conId;
+        this.conForId = conForId;
+        this.conDDD = conDDD;
+        this.conNumero = conNumero;
+        this.conEmail = conEmail;
+        this.conObs = conObs;
+    }
 }

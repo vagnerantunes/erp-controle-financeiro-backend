@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.erp.controle.financeiro.dto.FornecedorDTO;
 import com.erp.controle.financeiro.dto.FornecedorNewDTO;
+import com.erp.controle.financeiro.entities.Contato;
 import com.erp.controle.financeiro.entities.EnderecoFornecedor;
 import com.erp.controle.financeiro.entities.Fornecedor;
 import com.erp.controle.financeiro.repositories.EnderecoFornecedorRepository;
@@ -66,6 +67,13 @@ public class FornecedorService {
 			endereco.setEnfCep(objDto.getEnfCep());
 			endereco.setEnfPais(objDto.getEnfPais());
 			endereco.setEnfObs(objDto.getEnfObs());
+
+			// Atualiza o endereço de contato
+			Contato contato = entity.getContatos().get(0); // Assumindo que há apenas um contato por cliente
+			contato.setConDDD(objDto.getConDDD());
+			contato.setConNumero(objDto.getConNumero());
+			contato.setConEmail(objDto.getConEmail());
+			contato.setConObs(objDto.getConObs());
 
 			// Salva as alterações
 			repository.save(entity);
@@ -132,7 +140,11 @@ public class FornecedorService {
 				objDto.getEnfBairro(), objDto.getEnfCidade(), objDto.getEnfEstado(), objDto.getEnfCep(),
 				objDto.getEnfPais(), objDto.getEnfObs());
 
+		Contato contato = new Contato(null, fornec, objDto.getConDDD(), objDto.getConNumero(),
+				objDto.getConEmail(), objDto.getConObs());
+
 		fornec.getEnderecos().add(ender);
+		fornec.getContatos().add(contato);
 
 		return fornec;
 	}
