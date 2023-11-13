@@ -29,7 +29,7 @@ public class Contato implements Serializable {
 
     @Getter
     @Setter
-    @Column(length = 10, name = "CON_EMAIL")
+    @Column(length = 45, name = "CON_EMAIL")
     private String conEmail;
 
     @Getter

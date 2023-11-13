@@ -3,7 +3,10 @@ package com.erp.controle.financeiro.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.erp.controle.financeiro.dto.FornecedorDTO;
+import com.erp.controle.financeiro.dto.FornecedorNewDTO;
 import com.erp.controle.financeiro.services.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,26 +53,38 @@ public class FornecedorResource {
 
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<FornecedorDTO> getFornecedorById(@PathVariable Long id) {
-		return service.getFornecedorById(id)
-				.map(ResponseEntity::ok)
-				.orElse(ResponseEntity.notFound().build());
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Fornecedor> findById(@PathVariable Long id) {
+		Fornecedor obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 
 	@PostMapping
-	public ResponseEntity<FornecedorDTO> addFornecedor(@RequestBody FornecedorDTO productDTO) {
-		FornecedorDTO createdFornecedor = service.addFornecedor(productDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).body(createdFornecedor);
+	public ResponseEntity<Void> insert(@Valid @RequestBody FornecedorNewDTO objDto) {
+		Fornecedor obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getForId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Void> updateFornecedor(@PathVariable Long id, @RequestBody FornecedorDTO productDTO) {
-		boolean updated = service.updateFornecedor(id, productDTO);
-		if (updated) {
-			return ResponseEntity.noContent().build();
-		}
-		return ResponseEntity.notFound().build();
+//	@PostMapping
+//	public ResponseEntity<FornecedorDTO> addFornecedor(@RequestBody FornecedorDTO productDTO) {
+//		FornecedorDTO createdFornecedor = service.addFornecedor(productDTO);
+//		return ResponseEntity.status(HttpStatus.CREATED).body(createdFornecedor);
+//	}
+
+//	@PutMapping(value = "/{id}")
+//	public ResponseEntity<Void> update(@Valid @RequestBody FornecedorDTO objDto, @PathVariable Long id) {
+//		Fornecedor obj = service.fromDTO(objDto);
+//		obj.setForId(id);
+//		obj = service.update(id, obj);
+//		return ResponseEntity.noContent().build();
+//	}
+
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Void> update(@Valid @RequestBody FornecedorNewDTO objDto, @PathVariable Long id) {
+		service.update(id, objDto);
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{id}")

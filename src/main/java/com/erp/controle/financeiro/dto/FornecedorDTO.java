@@ -1,5 +1,6 @@
 package com.erp.controle.financeiro.dto;
 
+import com.erp.controle.financeiro.entities.Fornecedor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,12 +22,12 @@ public class FornecedorDTO implements Serializable {
     public FornecedorDTO() {
     }
 
-    public FornecedorDTO(Long forId, String forRazaoSocial, String forFantasia, String forCnpj, String forFlag, String forObs) {
-        this.forId = forId;
-        this.forRazaoSocial = forRazaoSocial;
-        this.forFantasia = forFantasia;
-        this.forCnpj = forCnpj;
-        this.forFlag = forFlag;
-        this.forObs = forObs;
+    public FornecedorDTO(Fornecedor obj) {
+        forId = obj.getForId();
+        forRazaoSocial = obj.getForRazaoSocial();
+        forFantasia = obj.getForFantasia();
+        forCnpj = obj.getForCnpj();
+        forFlag = obj.getForFlag();
+        forObs = obj.getForObs();
     }
 }
