@@ -1,11 +1,16 @@
 package com.erp.controle.financeiro.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_contato")
 public class Contato implements Serializable {
@@ -17,40 +22,37 @@ public class Contato implements Serializable {
     @Setter
     @Column(name = "CON_ID")
     private Long conId;
-
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "CON_FOR_ID")
+    @JoinColumn(name = "CON_FOR_ID", nullable = false)
     private Fornecedor conForId;
 
     @Getter
     @Setter
-    @Column(length = 4, name = "CON_DDD")
-    private String conDDD;
+    @Column(name = "CON_TELEFONE_COMERCIAL", length = 14)
+    private String conTelefoneComercial;
 
     @Getter
     @Setter
-    @Column(length = 10, name = "CON_NUMERO")
-    private String conNumero;
+    @Column(name = "CON_CELULAR", length = 15, nullable = false)
+    private String conCelular;
 
     @Getter
     @Setter
-    @Column(length = 45, name = "CON_EMAIL")
+    @Column(length = 55, name = "CON_EMAIL")
     private String conEmail;
 
     @Getter
     @Setter
-    @Column(length = 100, name = "CON_OBS")
-    private String conObs;
+    @Column(length = 55, name = "CON_EMAIL_SECUNDARIO")
+    private String conEmailSecundario;
 
-    public Contato() {
-    }
-    public Contato(Long conId, Fornecedor conForId, String conDDD, String conNumero, String conEmail, String conObs) {
+    public Contato(Long conId, Fornecedor conForId, String conTelefoneComercial, @NotNull String conCelular, String conEmail, String conEmailSecundario) {
         this.conId = conId;
         this.conForId = conForId;
-        this.conDDD = conDDD;
-        this.conNumero = conNumero;
+        this.conTelefoneComercial = conTelefoneComercial;
+        this.conCelular = conCelular;
         this.conEmail = conEmail;
-        this.conObs = conObs;
+        this.conEmailSecundario = conEmailSecundario;
     }
 }

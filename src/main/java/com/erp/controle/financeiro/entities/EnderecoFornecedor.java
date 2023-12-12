@@ -2,11 +2,14 @@ package com.erp.controle.financeiro.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_end_fornecedor")
 public class EnderecoFornecedor implements Serializable {
@@ -26,57 +29,61 @@ public class EnderecoFornecedor implements Serializable {
 
     @Getter
     @Setter
-    @Column(length = 45, name = "ENF_RUA")
+    @Column(name = "ENF_RUA", length = 55, nullable = false)
     private String enfRua;
 
     @Getter
     @Setter
-    @Column(length = 45, name = "ENF_NUMERO")
+    @Column(name = "ENF_NUMERO")
     private Integer enfNumero;
 
     @Getter
     @Setter
-    @Column(length = 45, name = "ENF_BAIRRO")
+    @Column(name = "ENF_BAIRRO", length = 55, nullable = false)
     private String enfBairro;
 
     @Getter
     @Setter
-    @Column(length = 45, name = "ENF_CIDADE")
+    @Column(name = "ENF_CIDADE", length = 55, nullable = false)
     private String enfCidade;
 
     @Getter
     @Setter
-    @Column(length = 45, name = "ENF_ESTADO")
-    private String enfEstado;
-
-    @Getter
-    @Setter
-    @Column(length = 45, name = "ENF_CEP")
+    @Column(name = "ENF_CEP", length = 9, nullable = false)
     private String enfCep;
 
+
     @Getter
     @Setter
-    @Column(length = 45, name = "ENF_PAIS")
+    @Column(name = "ENF_PAIS", length = 14, nullable = false)
     private String enfPais;
 
     @Getter
     @Setter
-    @Column(length = 45, name = "ENF_OBS")
-    private String enfObs;
+    @Column(name = "ENF_ESTADO", length = 20, nullable = false)
+    private String enfEstado;
 
-    public EnderecoFornecedor() {
-    }
+    @Getter
+    @Setter
+    @Column(name = "ENF_TIPO_RESIDENCIA", length = 18,  nullable = false)
+    private String enfTipoResidencia;
 
-    public EnderecoFornecedor(Long enfId, Fornecedor enfForId, String enfRua, Integer enfNumero, String enfBairro, String enfCidade, String enfEstado, String enfCep, String enfPais, String enfObs) {
+    @Getter
+    @Setter
+    @Column(name = "ENF_COMPLEMENTO", length = 55)
+    private String enfComplemento;
+
+    public EnderecoFornecedor(Long enfId, @NotNull Fornecedor enfForId, @NotNull String enfRua, Integer enfNumero, @NotNull String enfBairro, @NotNull String enfCidade, @NotNull String enfCep, @NotNull String enfPais, @NotNull String enfEstado, @NotNull String enfTipoResidencia, String enfComplemento) {
         this.enfId = enfId;
         this.enfForId = enfForId;
         this.enfRua = enfRua;
         this.enfNumero = enfNumero;
         this.enfBairro = enfBairro;
         this.enfCidade = enfCidade;
-        this.enfEstado = enfEstado;
         this.enfCep = enfCep;
         this.enfPais = enfPais;
-        this.enfObs = enfObs;
+        this.enfEstado = enfEstado;
+        this.enfTipoResidencia = enfTipoResidencia;
+        this.enfComplemento = enfComplemento;
     }
 }

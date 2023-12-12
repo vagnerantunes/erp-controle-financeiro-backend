@@ -1,9 +1,5 @@
 package com.erp.controle.financeiro.services;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import com.erp.controle.financeiro.dto.FornecedorDTO;
 import com.erp.controle.financeiro.dto.FornecedorNewDTO;
 import com.erp.controle.financeiro.entities.Contato;
@@ -11,141 +7,110 @@ import com.erp.controle.financeiro.entities.EnderecoFornecedor;
 import com.erp.controle.financeiro.entities.Fornecedor;
 import com.erp.controle.financeiro.repositories.EnderecoFornecedorRepository;
 import com.erp.controle.financeiro.repositories.FornecedorRepository;
+import com.erp.controle.financeiro.services.exceptions.ResourceNotFoundException;
+import com.erp.controle.financeiro.services.exceptions.ValueBigForAtributeException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.erp.controle.financeiro.entities.Fornecedor;
-import com.erp.controle.financeiro.repositories.FornecedorRepository;
-import com.erp.controle.financeiro.services.exceptions.ResourceNotFoundException;
-
-import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FornecedorService {
-	@Autowired
-	private FornecedorRepository repository;
+    @Autowired
+    private FornecedorRepository repository;
+    @Autowired
+    private EnderecoFornecedorRepository enderecoFornecedorRepository;
+    private Pageable pageable;
 
-	@Autowired
-	private EnderecoFornecedorRepository enderecoFornecedorRepository;
-	public List<FornecedorDTO> getAllFornecedors() {
-		List<Fornecedor> fornecedors = repository.findAll();
-		return fornecedors.stream().map(this::convertToDTO).collect(Collectors.toList());
-	}
-	public Page<FornecedorDTO> getAllFornecedorsPage(Pageable pageable) {
-		Page<Fornecedor> fornecedorPage = repository.findAll(pageable);
-		return fornecedorPage.map(this::convertToDTO);
-	}
-	public Fornecedor findById(Long id) {
-		Optional<Fornecedor> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
-	}
-	public Fornecedor insert(Fornecedor obj) {
-		obj.setForId(null);
-		obj = repository.save(obj);
-		enderecoFornecedorRepository.saveAll(obj.getEnderecos());
-		return obj;
-	}
+    public List<Fornecedor> findAll() {
+        return repository.findAll();
+    }
 
-	public Fornecedor update(Long id, FornecedorNewDTO objDto) {
-		try {
-			Fornecedor entity = findById(id);
+    public Page<Fornecedor> getAllFornecedorsPage(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
 
-			// Atualiza os dados do cliente
-			entity.setForRazaoSocial(objDto.getForRazaoSocial());
-			entity.setForFantasia(objDto.getForFantasia());
-			entity.setForCnpj(objDto.getForCnpj());
-			entity.setForFlag(objDto.getForFlag());
-			entity.setForObs(objDto.getForObs());
+    public Fornecedor findById(Long id) {
+        Optional<Fornecedor> obj = repository.findById(id);
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+    }
 
-			// Atualiza o endereço do cliente
-			EnderecoFornecedor endereco = entity.getEnderecos().get(0); // Assumindo que há apenas um endereço por cliente
-			endereco.setEnfBairro(objDto.getEnfBairro());
-			endereco.setEnfCidade(objDto.getEnfCidade());
-			endereco.setEnfEstado(objDto.getEnfEstado());
-			endereco.setEnfCep(objDto.getEnfCep());
-			endereco.setEnfPais(objDto.getEnfPais());
-			endereco.setEnfObs(objDto.getEnfObs());
+    public Fornecedor insert(Fornecedor obj) {
+        try {
+            obj.setForId(null);
+            obj = repository.save(obj);
+            enderecoFornecedorRepository.saveAll(obj.getEnderecos());
+            return obj;
+        } catch (DataIntegrityViolationException e) {
+            throw new ValueBigForAtributeException(e.getMessage());
+        }
 
-			// Atualiza o endereço de contato
-			Contato contato = entity.getContatos().get(0); // Assumindo que há apenas um contato por cliente
-			contato.setConDDD(objDto.getConDDD());
-			contato.setConNumero(objDto.getConNumero());
-			contato.setConEmail(objDto.getConEmail());
-			contato.setConObs(objDto.getConObs());
+    }
 
-			// Salva as alterações
-			repository.save(entity);
+    public Fornecedor update(Long id, FornecedorNewDTO objDto) {
+        try {
+            Fornecedor entity = findById(id);
 
-			return entity;
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
-		}
-	}
+            // Atualiza os dados do fornecedor
+            entity.setForRazaoSocial(objDto.getForRazaoSocial());
+            entity.setForNomeFantasia(objDto.getForNomeFantasia());
+            entity.setForCnpj(objDto.getForCnpj());
+            entity.setForFlag(objDto.getForFlag());
 
-//	public Fornecedor update(Long id, Fornecedor obj) {
-//		try {
-//			Fornecedor entity = findById(obj.getForId());
-//			updateData(entity, obj);
-//			return repository.save(entity);
-//		} catch (EntityNotFoundException e) {
-//			throw new ResourceNotFoundException(id);
-//		}
-//	}
-//
-//	private void updateData(Fornecedor entity, Fornecedor obj) {
-//		entity.setForRazaoSocial(obj.getForRazaoSocial());
-//		entity.setForFantasia(obj.getForFantasia());
-//		entity.setForCnpj(obj.getForCnpj());
-//		entity.setForFlag(obj.getForFlag());
-//		entity.setForObs(obj.getForObs());
-//	}
-	public void deleteFornecedor(Long id) {
-		repository.deleteById(id);
-	}
-	private FornecedorDTO convertToDTO(Fornecedor fornecedor) {
-		FornecedorDTO fornecedorDTO = new FornecedorDTO();
-		fornecedorDTO.setForId(fornecedor.getForId());
-		fornecedorDTO.setForRazaoSocial(fornecedor.getForRazaoSocial());
-		fornecedorDTO.setForFantasia(fornecedor.getForFantasia());
-		fornecedorDTO.setForCnpj(fornecedor.getForCnpj());
-		fornecedorDTO.setForFlag(fornecedor.getForFlag());
-		fornecedorDTO.setForObs(fornecedor.getForObs());
-		return fornecedorDTO;
-	}
+            // Atualiza o endereço do fornecedor
+            EnderecoFornecedor endereco = entity.getEnderecos().get(0); // Assumindo que há apenas um endereço por cliente
+            endereco.setEnfRua(objDto.getEnfRua());
+            endereco.setEnfNumero(objDto.getEnfNumero());
+            endereco.setEnfBairro(objDto.getEnfBairro());
+            endereco.setEnfCidade(objDto.getEnfCidade());
+            endereco.setEnfCep(objDto.getEnfCep());
+            endereco.setEnfPais(objDto.getEnfPais());
+            endereco.setEnfEstado(objDto.getEnfEstado());
+            endereco.setEnfTipoResidencia(objDto.getEnfTipoResidencia());
+            endereco.setEnfComplemento(objDto.getEnfComplemento());
 
-	private Fornecedor convertToEntity(FornecedorDTO fornecedorDTO) {
-		Fornecedor fornecedor = new Fornecedor();
-		fornecedor.setForId(fornecedorDTO.getForId());
-		fornecedor.setForRazaoSocial(fornecedorDTO.getForRazaoSocial());
-		fornecedor.setForFantasia(fornecedorDTO.getForFantasia());
-		fornecedor.setForCnpj(fornecedorDTO.getForCnpj());
-		fornecedor.setForFlag(fornecedorDTO.getForFlag());
-		fornecedor.setForObs(fornecedorDTO.getForObs());
-		return fornecedor;
-	}
+            // Atualiza o contato
+            Contato contato = entity.getContatos().get(0); // Assumindo que há apenas um contato por cliente
+            contato.setConTelefoneComercial(objDto.getConTelefoneComercial());
+            contato.setConCelular(objDto.getConCelular());
+            contato.setConEmail(objDto.getConEmail());
+            contato.setConEmailSecundario(objDto.getConEmailSecundario());
 
-	public Fornecedor fromDTO(FornecedorDTO objDto) {
-		return new Fornecedor(objDto.getForId(), objDto.getForRazaoSocial(), objDto.getForFantasia(),
-				objDto.getForCnpj(),objDto.getForFlag(),
-				objDto.getForObs());
-	}
+            // Salva as alterações
+            repository.save(entity);
 
-	public Fornecedor fromDTO(FornecedorNewDTO objDto) {
-		Fornecedor fornec = new Fornecedor(null, objDto.getForRazaoSocial(), objDto.getForFantasia(),
-				objDto.getForCnpj(), objDto.getForFlag(), objDto.getForObs());
+            return entity;
+        } catch (DataIntegrityViolationException e) {
+            throw new ValueBigForAtributeException(e.getMessage());
+        }
 
-		EnderecoFornecedor ender = new EnderecoFornecedor(null, fornec, objDto.getEnfRua(), objDto.getEnfNumero(),
-				objDto.getEnfBairro(), objDto.getEnfCidade(), objDto.getEnfEstado(), objDto.getEnfCep(),
-				objDto.getEnfPais(), objDto.getEnfObs());
+    }
+    public void deleteFornecedor(Long id) {
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        }
+    }
+    public Fornecedor fromDTO(FornecedorNewDTO objDto) {
+        Fornecedor fornec = new Fornecedor(null, objDto.getForRazaoSocial(), objDto.getForNomeFantasia(),
+                objDto.getForCnpj());
 
-		Contato contato = new Contato(null, fornec, objDto.getConDDD(), objDto.getConNumero(),
-				objDto.getConEmail(), objDto.getConObs());
+        EnderecoFornecedor ender = new EnderecoFornecedor(null, fornec, objDto.getEnfRua(), objDto.getEnfNumero(),
+                objDto.getEnfBairro(), objDto.getEnfCidade(), objDto.getEnfCep(), objDto.getEnfPais(),
+                objDto.getEnfEstado(), objDto.getEnfTipoResidencia(), objDto.getEnfComplemento());
 
-		fornec.getEnderecos().add(ender);
-		fornec.getContatos().add(contato);
+        Contato contato = new Contato(null, fornec, objDto.getConTelefoneComercial(), objDto.getConCelular(),
+                objDto.getConEmail(), objDto.getConEmailSecundario());
 
-		return fornec;
-	}
+        fornec.getEnderecos().add(ender);
+        fornec.getContatos().add(contato);
+
+        return fornec;
+    }
 }

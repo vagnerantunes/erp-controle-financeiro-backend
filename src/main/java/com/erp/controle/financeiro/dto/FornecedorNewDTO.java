@@ -2,8 +2,9 @@ package com.erp.controle.financeiro.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CNPJ;
 
-import javax.persistence.Column;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @Getter
@@ -12,23 +13,48 @@ public class FornecedorNewDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotEmpty(message="Preenchimento obrigatório")
     private String forRazaoSocial;
-    private String forFantasia;
+
+    @NotEmpty(message="Preenchimento obrigatório")
+    private String forNomeFantasia;
+
+    @CNPJ
+    @NotEmpty(message="Preenchimento obrigatório")
     private String forCnpj;
+
+//    @NotEmpty(message="Preenchimento obrigatório")
     private String forFlag;
-    private String forObs;
+
+    @NotEmpty(message="Preenchimento obrigatório")
     private String enfRua;
     private Integer enfNumero;
+    @NotEmpty(message="Preenchimento obrigatório")
     private String enfBairro;
+    @NotEmpty(message="Preenchimento obrigatório")
     private String enfCidade;
-    private String enfEstado;
+    @Pattern(regexp = "^\\d{5}-\\d{3}$", message = "O CEP deve seguir o formato 12345-678")
+    @NotEmpty(message="Preenchimento obrigatório")
     private String enfCep;
+    @NotEmpty(message="Preenchimento obrigatório")
     private String enfPais;
-    private String enfObs;
-    private String conDDD;
-    private String conNumero;
+    @NotEmpty(message="Preenchimento obrigatório")
+    private String enfEstado;
+    @NotEmpty(message="Preenchimento obrigatório")
+    private String enfTipoResidencia;
+    private String enfComplemento;
+
+    @Pattern(regexp = "^\\(\\d{2}\\) \\d{4}-\\d{4}$", message = "O telefone deve seguir o formato (99) 9999-9999")
+    private String conTelefoneComercial;
+
+    @Pattern(regexp = "^\\(\\d{2}\\) \\d{5}-\\d{4}$", message = "O celular deve seguir o formato (99) 99999-9999")
+    @NotEmpty(message="Preenchimento obrigatório")
+    private String conCelular;
+
+    @Email
     private String conEmail;
-    private String conObs;
+    @Email
+    private String conEmailSecundario;
     public FornecedorNewDTO() {
     }
 
