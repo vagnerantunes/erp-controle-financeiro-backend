@@ -23,12 +23,13 @@ public class FornecedorNewDTO implements Serializable {
     @NotEmpty(message="Preenchimento obrigatório")
     private String forCnpj;
 
-//    @NotEmpty(message="Preenchimento obrigatório")
     private String forFlag;
 
     @NotEmpty(message="Preenchimento obrigatório")
     private String enfRua;
+    @NotNull(message = "Preenchimento obrigatório")
     private Integer enfNumero;
+
     @NotEmpty(message="Preenchimento obrigatório")
     private String enfBairro;
     @NotEmpty(message="Preenchimento obrigatório")
@@ -42,9 +43,11 @@ public class FornecedorNewDTO implements Serializable {
     private String enfEstado;
     @NotEmpty(message="Preenchimento obrigatório")
     private String enfTipoResidencia;
+    @NotEmpty(message="Preenchimento obrigatório")
     private String enfComplemento;
 
-    @Pattern(regexp = "^\\(\\d{2}\\) \\d{4}-\\d{4}$", message = "O telefone deve seguir o formato (99) 9999-9999")
+    //quando o campo tem expressão e pode ser nulo, precisa de "$|" no inicio para dizer que é um campo não obrigatorio
+    @Pattern(regexp = "^$|^\\(\\d{2}\\) \\d{4}-\\d{4}$", message = "O telefone deve seguir o formato (99) 9999-9999")
     private String conTelefoneComercial;
 
     @Pattern(regexp = "^\\(\\d{2}\\) \\d{5}-\\d{4}$", message = "O celular deve seguir o formato (99) 99999-9999")

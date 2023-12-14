@@ -34,7 +34,7 @@ public class EnderecoFornecedor implements Serializable {
 
     @Getter
     @Setter
-    @Column(name = "ENF_NUMERO")
+    @Column(name = "ENF_NUMERO", nullable = false)
     private Integer enfNumero;
 
     @Getter
@@ -70,10 +70,10 @@ public class EnderecoFornecedor implements Serializable {
 
     @Getter
     @Setter
-    @Column(name = "ENF_COMPLEMENTO", length = 55)
+    @Column(name = "ENF_COMPLEMENTO", length = 55,  nullable = false)
     private String enfComplemento;
 
-    public EnderecoFornecedor(Long enfId, @NotNull Fornecedor enfForId, @NotNull String enfRua, Integer enfNumero, @NotNull String enfBairro, @NotNull String enfCidade, @NotNull String enfCep, @NotNull String enfPais, @NotNull String enfEstado, @NotNull String enfTipoResidencia, String enfComplemento) {
+    public EnderecoFornecedor(Long enfId, @NotNull Fornecedor enfForId, @NotNull String enfRua, @NotNull Integer enfNumero, @NotNull String enfBairro, @NotNull String enfCidade, @NotNull String enfCep, @NotNull String enfPais, @NotNull String enfEstado, @NotNull String enfTipoResidencia, @NotNull String enfComplemento) {
         this.enfId = enfId;
         this.enfForId = enfForId;
         this.enfRua = enfRua;
