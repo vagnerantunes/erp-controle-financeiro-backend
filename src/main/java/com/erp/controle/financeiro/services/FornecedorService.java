@@ -69,9 +69,7 @@ public class FornecedorService {
             endereco.setEnfBairro(objDto.getEnfBairro());
             endereco.setEnfCidade(objDto.getEnfCidade());
             endereco.setEnfCep(objDto.getEnfCep());
-            endereco.setEnfPais(objDto.getEnfPais());
             endereco.setEnfEstado(objDto.getEnfEstado());
-            endereco.setEnfTipoResidencia(objDto.getEnfTipoResidencia());
             endereco.setEnfComplemento(objDto.getEnfComplemento());
 
             // Atualiza o contato
@@ -97,13 +95,14 @@ public class FornecedorService {
             throw new ResourceNotFoundException(id);
         }
     }
+
     public Fornecedor fromDTO(FornecedorNewDTO objDto) {
         Fornecedor fornec = new Fornecedor(null, objDto.getForRazaoSocial(), objDto.getForNomeFantasia(),
                 objDto.getForCnpj());
 
         EnderecoFornecedor ender = new EnderecoFornecedor(null, fornec, objDto.getEnfRua(), objDto.getEnfNumero(),
-                objDto.getEnfBairro(), objDto.getEnfCidade(), objDto.getEnfCep(), objDto.getEnfPais(),
-                objDto.getEnfEstado(), objDto.getEnfTipoResidencia(), objDto.getEnfComplemento());
+                objDto.getEnfBairro(), objDto.getEnfCidade(), objDto.getEnfCep(),
+                objDto.getEnfEstado(), objDto.getEnfComplemento());
 
         Contato contato = new Contato(null, fornec, objDto.getConTelefoneComercial(), objDto.getConCelular(),
                 objDto.getConEmail(), objDto.getConEmailSecundario());

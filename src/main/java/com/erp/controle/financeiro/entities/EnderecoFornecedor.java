@@ -55,25 +55,15 @@ public class EnderecoFornecedor implements Serializable {
 
     @Getter
     @Setter
-    @Column(name = "ENF_PAIS", length = 14, nullable = false)
-    private String enfPais;
-
-    @Getter
-    @Setter
     @Column(name = "ENF_ESTADO", length = 20, nullable = false)
     private String enfEstado;
-
-    @Getter
-    @Setter
-    @Column(name = "ENF_TIPO_RESIDENCIA", length = 18,  nullable = false)
-    private String enfTipoResidencia;
 
     @Getter
     @Setter
     @Column(name = "ENF_COMPLEMENTO", length = 55,  nullable = false)
     private String enfComplemento;
 
-    public EnderecoFornecedor(Long enfId, @NotNull Fornecedor enfForId, @NotNull String enfRua, @NotNull Integer enfNumero, @NotNull String enfBairro, @NotNull String enfCidade, @NotNull String enfCep, @NotNull String enfPais, @NotNull String enfEstado, @NotNull String enfTipoResidencia, @NotNull String enfComplemento) {
+    public EnderecoFornecedor(Long enfId, @NotNull Fornecedor enfForId, @NotNull String enfRua, @NotNull Integer enfNumero, @NotNull String enfBairro, @NotNull String enfCidade, @NotNull String enfCep, @NotNull String enfEstado, @NotNull String enfComplemento) {
         this.enfId = enfId;
         this.enfForId = enfForId;
         this.enfRua = enfRua;
@@ -81,9 +71,7 @@ public class EnderecoFornecedor implements Serializable {
         this.enfBairro = enfBairro;
         this.enfCidade = enfCidade;
         this.enfCep = enfCep;
-        this.enfPais = enfPais;
         this.enfEstado = enfEstado;
-        this.enfTipoResidencia = enfTipoResidencia;
         this.enfComplemento = enfComplemento;
     }
 }

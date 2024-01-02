@@ -38,11 +38,8 @@ public class FornecedorNewDTO implements Serializable {
     @NotEmpty(message="Preenchimento obrigatório")
     private String enfCep;
     @NotEmpty(message="Preenchimento obrigatório")
-    private String enfPais;
-    @NotEmpty(message="Preenchimento obrigatório")
     private String enfEstado;
-    @NotEmpty(message="Preenchimento obrigatório")
-    private String enfTipoResidencia;
+
     @NotEmpty(message="Preenchimento obrigatório")
     private String enfComplemento;
 
