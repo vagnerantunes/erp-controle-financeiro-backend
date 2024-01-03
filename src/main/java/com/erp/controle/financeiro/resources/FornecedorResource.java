@@ -33,9 +33,9 @@ public class FornecedorResource {
         this.service = service;
     }
     @GetMapping
-    public ResponseEntity<List<FornecedorDTO>> findAll() {
+    public ResponseEntity<List<FornecedorNewDTO>> findAll() {
         List<Fornecedor> list = service.findAll();
-        List<FornecedorDTO> listDto = list.stream().map(obj -> new FornecedorDTO(obj)).collect(Collectors.toList());
+        List<FornecedorNewDTO> listDto = list.stream().map(obj -> service.toNewDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
 
@@ -52,10 +52,12 @@ public class FornecedorResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Fornecedor> findById(@PathVariable Long id) {
+    public ResponseEntity<FornecedorNewDTO> findById(@PathVariable Long id) {
         Fornecedor obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        FornecedorNewDTO dto = service.toDTO(obj);
+        return ResponseEntity.ok().body(dto);
     }
+
 
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody FornecedorNewDTO objDto) {
