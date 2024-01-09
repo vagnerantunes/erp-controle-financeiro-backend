@@ -60,9 +60,8 @@ public class EnderecoFornecedor implements Serializable {
 
     @Getter
     @Setter
-    @Column(name = "ENF_COMPLEMENTO", length = 55,  nullable = false)
+    @Column(name = "ENF_COMPLEMENTO", length = 150,  nullable = false)
     private String enfComplemento;
-
     public EnderecoFornecedor(Long enfId, @NotNull Fornecedor enfForId, @NotNull String enfRua, @NotNull Integer enfNumero, @NotNull String enfBairro, @NotNull String enfCidade, @NotNull String enfCep, @NotNull String enfEstado, @NotNull String enfComplemento) {
         this.enfId = enfId;
         this.enfForId = enfForId;

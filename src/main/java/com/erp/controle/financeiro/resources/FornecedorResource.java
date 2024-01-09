@@ -20,7 +20,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.erp.controle.financeiro.entities.Fornecedor;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//Fui incluido na classe securitConfig o metodo para liberar acesso cors
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/fornecedores")
 public class FornecedorResource {

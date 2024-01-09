@@ -21,7 +21,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_parcela")
 public class Parcela implements Serializable{
-
 	private static final long serialVersionUID = 1L;
 	
 	@Getter
