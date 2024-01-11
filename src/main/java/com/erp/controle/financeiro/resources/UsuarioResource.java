@@ -4,7 +4,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.erp.controle.financeiro.dto.FornecedorNewDTO;
 import com.erp.controle.financeiro.dto.UsuarioDTO;
+import com.erp.controle.financeiro.entities.Fornecedor;
 import com.erp.controle.financeiro.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +22,8 @@ import com.erp.controle.financeiro.dto.UsuarioDTO;
 import com.erp.controle.financeiro.entities.Usuario;
 import com.erp.controle.financeiro.services.UsuarioService;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/usuarios")
 public class UsuarioResource {
@@ -28,51 +31,49 @@ public class UsuarioResource {
 	@Autowired
 	private UsuarioService service;
 
-	@Autowired
-	public UsuarioResource(UsuarioService service) {
-		this.service = service;
-	}
+//	@Autowired
+//	public UsuarioResource(UsuarioService service) {
+//		this.service = service;
+//	}
 
 	@GetMapping
-	public ResponseEntity<List<UsuarioDTO>> getAllUsuarios() {
-		List<UsuarioDTO> products = service.getAllUsuarios();
-		return ResponseEntity.ok(products);
+	public ResponseEntity<List<UsuarioDTO>> findAll() {
+		List<Usuario> list = service.findAll();
+		List<UsuarioDTO> listDto = list.stream().map(obj -> service.toNewDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
-	public ResponseEntity<Page<UsuarioDTO>> getAllUsuariosPage(@RequestParam(defaultValue = "0") int pageNumber,
-															   @RequestParam(defaultValue = "10") int pageSize, @RequestParam(defaultValue = "usuId") String sortBy,
-															   @RequestParam(defaultValue = "asc") String sortOrder,
-															   @RequestParam(defaultValue = "") String globalFilter) {
+	public ResponseEntity<Page<Usuario>> getAllUsuariosPage(@RequestParam(defaultValue = "0") int pageNumber,
+																  @RequestParam(defaultValue = "10") int pageSize, @RequestParam(defaultValue = "usuId") String sortBy,
+																  @RequestParam(defaultValue = "asc") String sortOrder) {
 
 		Sort.Direction sortDirection = sortOrder.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
 		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortDirection, sortBy));
 
-		Page<UsuarioDTO> products = service.getAllUsuariosPage(pageable);
-		return ResponseEntity.ok(products);
-
+		Page<Usuario> usuarioPage = service.getAllUsuariosPage(pageable);
+		return ResponseEntity.ok(usuarioPage);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<UsuarioDTO> getUsuarioById(@PathVariable Long id) {
-		return service.getUsuarioById(id)
-				.map(ResponseEntity::ok)
-				.orElse(ResponseEntity.notFound().build());
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<UsuarioDTO> findById(@PathVariable Long id) {
+		Usuario obj = service.findById(id);
+		UsuarioDTO dto = service.toNewDTO(obj);
+		return ResponseEntity.ok().body(dto);
 	}
 
 	@PostMapping
-	public ResponseEntity<UsuarioDTO> addUsuario(@RequestBody UsuarioDTO productDTO) {
-		UsuarioDTO createdUsuario = service.addUsuario(productDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).body(createdUsuario);
+	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO objDto) {
+		Usuario obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getUsuId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Void> updateUsuario(@PathVariable Long id, @RequestBody UsuarioDTO productDTO) {
-		boolean updated = service.updateUsuario(id, productDTO);
-		if (updated) {
-			return ResponseEntity.noContent().build();
-		}
-		return ResponseEntity.notFound().build();
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDto, @PathVariable Long id) {
+		service.update(id, objDto);
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{id}")

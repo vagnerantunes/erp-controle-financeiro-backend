@@ -1,6 +1,5 @@
 package com.erp.controle.financeiro.services;
 
-import com.erp.controle.financeiro.dto.FornecedorDTO;
 import com.erp.controle.financeiro.dto.FornecedorNewDTO;
 import com.erp.controle.financeiro.entities.Contato;
 import com.erp.controle.financeiro.entities.EnderecoFornecedor;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class FornecedorService {
     @Autowired

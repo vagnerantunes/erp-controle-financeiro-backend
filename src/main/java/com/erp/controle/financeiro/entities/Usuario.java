@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -35,18 +36,18 @@ public class Usuario implements Serializable{
 
 	@Getter
 	@Setter
-	@Column(length = 1, nullable = false, name = "USU_FLAG")
-	private String usuFlag;
+	@Column(name = "USU_FLAG", length = 9)
+	private String usuFlag  = "ATIVO";
 
 	@Getter
 	@Setter
 	@Column(length = 15, nullable = false, name = "USU_FUNCAO")
 	private String usuFuncao;
 
-	//@JsonIgnore //anotação para não ficar aparecendo dados referente a senha
+	@JsonIgnore //anotação para não ficar aparecendo dados referente a senha
 	@Getter
 	@Setter
-	@Column(name = "USU_SENHA")
+	@Column(name = "USU_SENHA", nullable = false, length = 15)
 	private String usuSenha;
 
 	@Getter
@@ -57,11 +58,10 @@ public class Usuario implements Serializable{
 	public Usuario() {
 	}
 
-	public Usuario(Long usuId, String usuNome, String usuFlag, String usuFuncao, String usuSenha) {
+	public Usuario(Long usuId, @NotNull String usuNome, @NotNull String usuFuncao, @NotNull String usuSenha) {
 		super();
 		this.usuId = usuId;
 		this.usuNome = usuNome;
-		this.usuFlag = usuFlag;
 		this.usuFuncao = usuFuncao;
 		this.usuSenha = usuSenha;
 	}

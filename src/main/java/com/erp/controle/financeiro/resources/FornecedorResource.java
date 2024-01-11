@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import com.erp.controle.financeiro.dto.FornecedorDTO;
 import com.erp.controle.financeiro.dto.FornecedorNewDTO;
 import com.erp.controle.financeiro.services.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.erp.controle.financeiro.entities.Fornecedor;
 
-//Fui incluido na classe securitConfig o metodo para liberar acesso cors
+//Foi incluido na classe securitConfig o metodo para liberar acesso cors
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/fornecedores")
@@ -29,10 +28,10 @@ public class FornecedorResource {
     @Autowired
     private FornecedorService service;
 
-    @Autowired
-    public FornecedorResource(FornecedorService service) {
-        this.service = service;
-    }
+//    @Autowired
+//    public FornecedorResource(FornecedorService service) {
+//        this.service = service;
+//    }
     @GetMapping
     public ResponseEntity<List<FornecedorNewDTO>> findAll() {
         List<Fornecedor> list = service.findAll();

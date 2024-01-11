@@ -13,6 +13,9 @@ package com.erp.controle.financeiro.dto;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.NotEmpty;
+
 @Getter
 @Setter
 public class UsuarioDTO implements Serializable{
@@ -20,20 +23,19 @@ public class UsuarioDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Long usuId;
+
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String usuNome;
+
 	private String usuFlag;
+
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String usuFuncao;
+
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String usuSenha;
-
-
-	public UsuarioDTO() {		
+	public UsuarioDTO() {
 	}
 
-	public UsuarioDTO(Long usuId, String usuNome, String usuFlag, String usuFuncao, String usuSenha) {
-		this.usuId = usuId;
-		this.usuNome = usuNome;
-		this.usuFlag = usuFlag;
-		this.usuFuncao = usuFuncao;
-		this.usuSenha = usuSenha;
-	}
+	
 }

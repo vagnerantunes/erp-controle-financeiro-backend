@@ -17,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.erp.controle.financeiro.entities.Cliente;
 import com.erp.controle.financeiro.services.ClienteService;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {

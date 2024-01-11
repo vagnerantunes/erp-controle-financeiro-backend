@@ -17,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.erp.controle.financeiro.entities.Boleto;
 import com.erp.controle.financeiro.services.BoletoService;
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/boletos")
 public class BoletoResource {
