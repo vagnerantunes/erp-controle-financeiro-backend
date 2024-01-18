@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,12 +30,14 @@ public class ClienteResource {
         this.service = service;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping
     public ResponseEntity<List<ClienteDTO>> getAllClientes() {
         List<ClienteDTO> products = service.getAllClientes();
         return ResponseEntity.ok(products);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<ClienteDTO>> getAllClientesPage(@RequestParam(defaultValue = "0") int pageNumber,
            @RequestParam(defaultValue = "10") int pageSize, @RequestParam(defaultValue = "cliId") String sortBy,
@@ -48,13 +51,14 @@ public class ClienteResource {
 
     }
 
-    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public ResponseEntity<ClienteDTO> getClienteById(@PathVariable Long id) {
         return service.getClienteById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<ClienteDTO> addCliente(@RequestBody ClienteDTO productDTO) {
         ClienteDTO createdCliente = service.addCliente(productDTO);
@@ -70,6 +74,7 @@ public class ClienteResource {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
         service.deleteCliente(id);

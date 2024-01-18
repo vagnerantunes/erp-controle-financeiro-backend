@@ -58,7 +58,6 @@ public class FornecedorResource {
         return ResponseEntity.ok().body(dto);
     }
 
-
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody FornecedorNewDTO objDto) {
         Fornecedor obj = service.fromDTO(objDto);
