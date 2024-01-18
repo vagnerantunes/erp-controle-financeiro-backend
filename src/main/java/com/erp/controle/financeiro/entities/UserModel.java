@@ -1,9 +1,5 @@
 package com.erp.controle.financeiro.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,7 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TB_USER")
@@ -20,13 +15,14 @@ public class UserModel implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "USU_ID")
+    private Long usuId;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+    @Column(name = "USU_NOME", nullable = false, unique = true)
+    private String usuNome;
 
-    @Column(nullable = false)
-    private String password;
+    @Column(name = "USU_SENHA", nullable = false)
+    private String usuSenha;
     @ManyToMany
     @JoinTable(name = "TB_USERS_ROLES",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -40,12 +36,12 @@ public class UserModel implements UserDetails, Serializable {
 
     @Override
     public String getPassword() {
-        return this.password;
+        return this.usuSenha;
     }
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.usuNome;
     }
 
     @Override
@@ -71,19 +67,19 @@ public class UserModel implements UserDetails, Serializable {
     //getters e setters atributos padrao
 
 
-    public Long getId() {
-        return id;
+    public Long getUsuId() {
+        return usuId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUsuId(Long usuId) {
+        this.usuId = usuId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsuNome(String usuNome) {
+        this.usuNome = usuNome;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUsuSenha(String usuSenha) {
+        this.usuSenha = usuSenha;
     }
 }
