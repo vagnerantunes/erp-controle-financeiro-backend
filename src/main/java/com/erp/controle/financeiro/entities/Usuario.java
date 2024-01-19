@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "TB_USER")
+@Table(name = "TB_USUARIO")
 public class Usuario implements UserDetails, Serializable {
     private static final long serialVersionUID = 1L;
 
