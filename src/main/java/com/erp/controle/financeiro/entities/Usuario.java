@@ -1,68 +1,85 @@
 package com.erp.controle.financeiro.entities;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-@Table(name = "tb_usuario")
-public class Usuario implements Serializable{
+@Table(name = "TB_USER")
+public class Usuario implements UserDetails, Serializable {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USU_ID")
+    private Long usuId;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter
-	@Setter
-	@Column(name = "USU_ID")
-	private Long usuId;
+    @Column(name = "USU_NOME", nullable = false, unique = true)
+    private String usuNome;
 
-	@Getter
-	@Setter
-	@Column(length = 45, nullable = false, name = "USU_NOME")
-	private String usuNome;
+    @Column(name = "USU_SENHA", nullable = false)
+    private String usuSenha;
+    @ManyToMany
+    @JoinTable(name = "TB_USERS_ROLES",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<RoleModel> roles;
 
-	@Getter
-	@Setter
-	@Column(name = "USU_FLAG", length = 9)
-	private String usuFlag  = "ATIVO";
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles;
+    }
 
-	@Getter
-	@Setter
-	@Column(length = 15, nullable = false, name = "USU_FUNCAO")
-	private String usuFuncao;
+    @Override
+    public String getPassword() {
+        return this.usuSenha;
+    }
 
-	@JsonIgnore //anotação para não ficar aparecendo dados referente a senha
-	@Getter
-	@Setter
-	@Column(name = "USU_SENHA", nullable = false, length = 15)
-	private String usuSenha;
+    @Override
+    public String getUsername() {
+        return this.usuNome;
+    }
 
-	@Getter
-	@JsonIgnore
-	@OneToMany(mappedBy = "usuarios")
-	private List<Usuario> usuarios = new ArrayList<>();
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	public Usuario() {
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	public Usuario(Long usuId, @NotNull String usuNome, @NotNull String usuFuncao, @NotNull String usuSenha) {
-		super();
-		this.usuId = usuId;
-		this.usuNome = usuNome;
-		this.usuFuncao = usuFuncao;
-		this.usuSenha = usuSenha;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    //getters e setters atributos padrao
+
+
+    public Long getUsuId() {
+        return usuId;
+    }
+
+    public void setUsuId(Long usuId) {
+        this.usuId = usuId;
+    }
+
+    public void setUsuNome(String usuNome) {
+        this.usuNome = usuNome;
+    }
+
+    public void setUsuSenha(String usuSenha) {
+        this.usuSenha = usuSenha;
+    }
 }

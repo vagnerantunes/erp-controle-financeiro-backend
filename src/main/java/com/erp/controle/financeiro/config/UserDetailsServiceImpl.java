@@ -1,6 +1,6 @@
 package com.erp.controle.financeiro.config;
 
-import com.erp.controle.financeiro.entities.UserModel;
+import com.erp.controle.financeiro.entities.Usuario;
 import com.erp.controle.financeiro.repositories.UserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,9 +23,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel userModel = userRepository.findByUsuNome(username)
+        Usuario usuario = userRepository.findByUsuNome(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
-            return new User(userModel.getUsername(), userModel.getPassword(), true, true, true, true, userModel.getAuthorities());
+            return new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, usuario.getAuthorities());
     }
 
 }

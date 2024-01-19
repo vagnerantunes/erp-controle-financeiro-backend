@@ -55,11 +55,11 @@ public class Venda implements Serializable{
 	@JoinColumn(name = "VEN_FPG_ID")
 	private FormaPagamento pagamentos;
 	
-	@Getter
-	@Setter
-	@ManyToOne
-	@JoinColumn(name = "VEN_USU_ID")
-	private Usuario usuarios;
+//	@Getter
+//	@Setter
+//	@ManyToOne
+//	@JoinColumn(name = "VEN_USU_ID")
+//	private Usuario usuarios;
 	
 	@Getter
 	@Setter
@@ -88,13 +88,12 @@ public class Venda implements Serializable{
 	public Venda() {		
 	}
 	
-	public Venda(Long vEN_ID, Cliente clientes, FormaPagamento pagamentos, Usuario usuarios, Instant vEN_DATA, Double vEN_VRTOTAL, Double vEN_VRPAGO, Double vEN_DESCONTO,
+	public Venda(Long vEN_ID, Cliente clientes, FormaPagamento pagamentos, Instant vEN_DATA, Double vEN_VRTOTAL, Double vEN_VRPAGO, Double vEN_DESCONTO,
 			Double vEN_JUROS, PagamentoStatus vEN_STS_PAG, VendaStatus vEN_STS_ORC) {
 		super();
 		VEN_ID = vEN_ID;
 		this.clientes = clientes;
 		this.pagamentos = pagamentos;
-		this.usuarios = usuarios;		
 		VEN_DATA = vEN_DATA;
 		VEN_VRTOTAL = vEN_VRTOTAL;
 		VEN_VRPAGO = vEN_VRPAGO;
