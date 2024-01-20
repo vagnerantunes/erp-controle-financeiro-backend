@@ -14,6 +14,7 @@ public class RoleModel implements GrantedAuthority, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ROL_ID")
     private Long roleId;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)

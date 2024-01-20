@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -21,6 +22,7 @@ import com.erp.controle.financeiro.entities.Fornecedor;
 
 //Foi incluido na classe securitConfig o metodo para liberar acesso cors
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RestController
 @RequestMapping(value = "/fornecedores")
 public class FornecedorResource {

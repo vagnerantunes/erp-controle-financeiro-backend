@@ -7,28 +7,29 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-
 @Entity
-@Table(name = "TB_USUARIO")
-public class Usuario implements UserDetails, Serializable {
+@Table(name = "TB_USER")
+public class UserModel implements UserDetails, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USU_ID")
-    private Long usuId;
+    private Long id;
 
-    @Column(name = "USU_NOME", nullable = false, unique = true)
-    private String usuNome;
+    @Column(nullable = false, unique = true)
+    private String username;
 
-    @Column(name = "USU_SENHA", nullable = false)
-    private String usuSenha;
+    @Column(nullable = false)
+    private String password;
+
     @ManyToMany
     @JoinTable(name = "TB_USERS_ROLES",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleModel> roles;
 
+    //metodos gerados da classe userdetail
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles;
@@ -36,12 +37,12 @@ public class Usuario implements UserDetails, Serializable {
 
     @Override
     public String getPassword() {
-        return this.usuSenha;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.usuNome;
+        return this.username;
     }
 
     @Override
@@ -64,22 +65,20 @@ public class Usuario implements UserDetails, Serializable {
         return true;
     }
 
-    //getters e setters atributos padrao
-
-
-    public Long getUsuId() {
-        return usuId;
+    //getter e setter padrao das classes
+    public Long getId() {
+        return id;
     }
 
-    public void setUsuId(Long usuId) {
-        this.usuId = usuId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setUsuNome(String usuNome) {
-        this.usuNome = usuNome;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setUsuSenha(String usuSenha) {
-        this.usuSenha = usuSenha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.erp.controle.financeiro.entities.Cliente;
 import com.erp.controle.financeiro.services.ClienteService;
 
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
