@@ -1,13 +1,10 @@
 package com.erp.controle.financeiro.entities;
 
 import com.erp.controle.financeiro.enums.RoleName;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TB_ROLE")
