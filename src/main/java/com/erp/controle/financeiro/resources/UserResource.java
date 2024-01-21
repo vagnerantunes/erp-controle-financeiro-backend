@@ -1,10 +1,12 @@
 package com.erp.controle.financeiro.resources;
 
 import com.erp.controle.financeiro.config.UserDetailsServiceImpl;
+import com.erp.controle.financeiro.dto.UserRegistrationDTO;
 import com.erp.controle.financeiro.entities.Produto;
 import com.erp.controle.financeiro.entities.UserModel;
 import com.erp.controle.financeiro.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,11 +35,23 @@ public class UserResource {
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> insert(@RequestBody UserModel user) {
-        UserModel newUser = service.insert(user);
-        // Retorna a URI do novo recurso criado
-        return ResponseEntity.created(URI.create("/usuarios/" + newUser.getId())).body(newUser);
+    public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO userDTO) {
+        try {
+            service.registerUser(userDTO);
+            return new ResponseEntity<>("User registered successfully.", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
+//    @PutMapping(value = "/{id}")
+//    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserRegistrationDTO userDTO) {
+//        try {
+//            service.updateUser(id, userDTO);
+//            return new ResponseEntity<>("User updated successfully.", HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
 }

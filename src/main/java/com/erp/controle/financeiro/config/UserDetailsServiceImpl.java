@@ -1,6 +1,8 @@
 package com.erp.controle.financeiro.config;
 
+import com.erp.controle.financeiro.dto.UserRegistrationDTO;
 import com.erp.controle.financeiro.entities.Produto;
+import com.erp.controle.financeiro.entities.RoleModel;
 import com.erp.controle.financeiro.entities.UserModel;
 import com.erp.controle.financeiro.repositories.RoleRepository;
 import com.erp.controle.financeiro.repositories.UserRepository;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +42,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
         return new User(userModel.getUsername(), userModel.getPassword(), true, true, true, true, userModel.getAuthorities());
     }
-    public List<UserModel> findAll(){
+
+    public List<UserModel> findAll() {
         return userRepository.findAll();
     }
 
@@ -48,14 +52,33 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public UserModel insert(UserModel user) {
-        // Criptografa a senha antes de salvar no banco de dados
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    @Transactional
+    public void registerUser(UserRegistrationDTO userDTO) {
+        UserModel user = new UserModel();
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword())); // Lembre-se de usar um encoder para a senha
 
-        // Adicione lógica adicional aqui, se necessário
-        // ...
+        RoleModel role = roleRepository.findByRoleName(userDTO.getRoleName())
+                .orElseThrow(() -> new RuntimeException("Role not found"));
 
-        return userRepository.save(user);
+        user.setRoles(Collections.singletonList(role));
+
+        userRepository.save(user);
     }
 
+//    @Transactional
+//    public void updateUser(Long userId, UserRegistrationDTO userDTO) {
+//        UserModel existingUser = userRepository.findById(userId)
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//
+//        existingUser.setUsername(userDTO.getUsername());
+//        existingUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+//
+//        RoleModel role = roleRepository.findByRoleName(userDTO.getRoleName())
+//                .orElseThrow(() -> new RuntimeException("Role not found"));
+//
+//        existingUser.setRoles(Collections.singletonList(role));
+//
+//        userRepository.save(existingUser);
+//    }
 }
