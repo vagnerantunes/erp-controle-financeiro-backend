@@ -80,4 +80,13 @@ public class UserModel implements UserDetails, Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    // Getters e Setters para o relacionamento ManyToMany
+    public List<RoleModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleModel> roles) {
+        this.roles = roles;
+    }
 }
