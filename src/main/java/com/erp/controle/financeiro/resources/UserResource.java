@@ -2,9 +2,7 @@ package com.erp.controle.financeiro.resources;
 
 import com.erp.controle.financeiro.config.UserDetailsServiceImpl;
 import com.erp.controle.financeiro.dto.UserRegistrationDTO;
-import com.erp.controle.financeiro.entities.Produto;
 import com.erp.controle.financeiro.entities.UserModel;
-import com.erp.controle.financeiro.services.ProdutoService;
 import com.erp.controle.financeiro.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -44,7 +41,6 @@ public class UserResource {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
     @PutMapping(value = "/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserRegistrationDTO userDTO) {
         try {
