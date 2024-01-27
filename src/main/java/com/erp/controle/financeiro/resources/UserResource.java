@@ -5,6 +5,7 @@ import com.erp.controle.financeiro.dto.UserRegistrationDTO;
 import com.erp.controle.financeiro.entities.Produto;
 import com.erp.controle.financeiro.entities.UserModel;
 import com.erp.controle.financeiro.services.ProdutoService;
+import com.erp.controle.financeiro.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,14 +45,17 @@ public class UserResource {
         }
     }
 
-//    @PutMapping(value = "/{id}")
-//    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserRegistrationDTO userDTO) {
-//        try {
-//            service.updateUser(id, userDTO);
-//            return new ResponseEntity<>("User updated successfully.", HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserRegistrationDTO userDTO) {
+        try {
+            service.updateUser(id, userDTO);
+            return new ResponseEntity<>("User updated successfully.", HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 }

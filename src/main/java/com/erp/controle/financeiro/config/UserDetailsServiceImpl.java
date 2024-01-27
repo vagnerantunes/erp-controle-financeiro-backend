@@ -57,7 +57,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserModel user = new UserModel();
         user.setUsername(userDTO.getUsername());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword())); // Lembre-se de usar um encoder para a senha
-
         RoleModel role = roleRepository.findByRoleName(userDTO.getRoleName())
                 .orElseThrow(() -> new RuntimeException("Role not found"));
 
@@ -66,19 +65,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userRepository.save(user);
     }
 
-//    @Transactional
-//    public void updateUser(Long userId, UserRegistrationDTO userDTO) {
-//        UserModel existingUser = userRepository.findById(userId)
-//                .orElseThrow(() -> new RuntimeException("User not found"));
-//
-//        existingUser.setUsername(userDTO.getUsername());
-//        existingUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-//
-//        RoleModel role = roleRepository.findByRoleName(userDTO.getRoleName())
-//                .orElseThrow(() -> new RuntimeException("Role not found"));
-//
-//        existingUser.setRoles(Collections.singletonList(role));
-//
-//        userRepository.save(existingUser);
-//    }
+    @Transactional
+    public void updateUser(Long userId, UserRegistrationDTO userDTO) {
+        UserModel existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+
+        existingUser.setUsername(userDTO.getUsername());
+        existingUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
+        RoleModel role = roleRepository.findByRoleName(userDTO.getRoleName())
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+
+        existingUser.setRoles(Collections.singletonList(role));
+
+        userRepository.save(existingUser);
+    }
 }

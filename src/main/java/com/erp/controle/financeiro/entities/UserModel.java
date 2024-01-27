@@ -85,8 +85,8 @@ public class UserModel implements UserDetails, Serializable {
     public List<RoleModel> getRoles() {
         return roles;
     }
-
     public void setRoles(List<RoleModel> roles) {
         this.roles = roles;
     }
+
 }

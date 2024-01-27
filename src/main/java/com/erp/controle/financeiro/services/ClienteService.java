@@ -49,7 +49,8 @@ public class ClienteService {
 		if (optionalCliente.isPresent()) {
 			Cliente cliente = optionalCliente.get();
 			cliente.setCliNome(clienteDTO.getCliNome());
-			cliente.setCliTipo(clienteDTO.getCliCpfCnpj());
+			cliente.setCliTipo(clienteDTO.getCliTipo());
+			cliente.setCliCpfCnpj(clienteDTO.getCliCpfCnpj());
 			cliente.setCliDataNascimento(clienteDTO.getCliDataNascimento());
 			cliente.setCliContato(clienteDTO.getCliContato());
 			cliente.setCliEmail(clienteDTO.getCliEmail());
