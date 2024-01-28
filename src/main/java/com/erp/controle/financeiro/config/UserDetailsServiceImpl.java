@@ -23,7 +23,6 @@ import java.util.Optional;
 @Service
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
-
     final UserRepository userRepository;
 
     public UserDetailsServiceImpl(UserRepository userRepository) {
@@ -66,19 +65,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userRepository.save(user);
     }
 
-//    @Transactional
-//    public void updateUser(Long userId, UserRegistrationDTO userDTO) {
-//        UserModel existingUser = userRepository.findById(userId)
-//                .orElseThrow(() -> new RuntimeException("User not found"));
-//
-//        existingUser.setUsername(userDTO.getUsername());
-//        existingUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-//
+    @Transactional
+    public void updateUser(Long userId, UserRegistrationDTO userDTO) {
+        UserModel existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        existingUser.setUsername(userDTO.getUsername());
+        existingUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
 //        RoleModel role = roleRepository.findByRoleName(userDTO.getRoleName())
 //                .orElseThrow(() -> new RuntimeException("Role not found"));
 //
 //        existingUser.setRoles(Collections.singletonList(role));
-//
-//        userRepository.save(existingUser);
-//    }
+
+        userRepository.save(existingUser);
+    }
 }
