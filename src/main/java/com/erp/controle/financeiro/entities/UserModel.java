@@ -1,6 +1,8 @@
 package com.erp.controle.financeiro.entities;
 
+import com.erp.controle.financeiro.enums.RoleName;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -23,17 +25,15 @@ public class UserModel implements UserDetails, Serializable {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany
-    @JoinTable(name = "TB_USERS_ROLES",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<RoleModel> roles;
+    @Enumerated(EnumType.STRING)
+    private RoleName role;
 
     //metodos gerados da classe userdetail
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
+
 
     @Override
     public String getPassword() {
@@ -81,12 +81,11 @@ public class UserModel implements UserDetails, Serializable {
         this.password = password;
     }
 
-    // Getters e Setters para o relacionamento ManyToMany
-    public List<RoleModel> getRoles() {
-        return roles;
+    public RoleName getRole() {
+        return role;
     }
 
-    public void setRoles(List<RoleModel> roles) {
-        this.roles = roles;
+    public void setRole(RoleName role) {
+        this.role = role;
     }
 }
