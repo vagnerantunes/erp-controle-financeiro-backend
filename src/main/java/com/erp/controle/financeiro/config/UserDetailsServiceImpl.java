@@ -42,11 +42,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public UserModel updateUser(UserModel user) {
+        // Check if the password is not already encoded
+        if (!user.getPassword().startsWith("$")) {
+            // Encode the password before saving or updating
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return userRepository.save(user);
     }
 
-    // Create operation
     public UserModel createUser(UserModel user) {
+        // Encode the password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
