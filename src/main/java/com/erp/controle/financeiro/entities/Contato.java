@@ -47,12 +47,36 @@ public class Contato implements Serializable {
     @Column(length = 55, name = "CON_EMAIL_SECUNDARIO")
     private String conEmailSecundario;
 
-    public Contato(Long conId, Fornecedor conForId, String conTelefoneComercial, @NotNull String conCelular, String conEmail, String conEmailSecundario) {
+    @Getter
+    @Setter
+    @Column(length = 10, name = "CON_TIPO_REDE1")
+    private String conTipoRede1;
+
+    @Getter
+    @Setter
+    @Column(length = 55, name = "CON_REDE_SOCIAL1")
+    private String conRedeSocial1;
+
+    @Getter
+    @Setter
+    @Column(length = 10, name = "CON_TIPO_REDE2")
+    private String conTipoRede2;
+
+    @Getter
+    @Setter
+    @Column(length = 55, name = "CON_REDE_SOCIAL2")
+    private String conRedeSocial2;
+
+    public Contato(Long conId, Fornecedor conForId, String conTelefoneComercial, @NotNull String conCelular, String conEmail, String conEmailSecundario, String conTipoRede1, String conRedeSocial1, String conTipoRede2, String conRedeSocial2) {
         this.conId = conId;
         this.conForId = conForId;
         this.conTelefoneComercial = conTelefoneComercial;
         this.conCelular = conCelular;
         this.conEmail = conEmail;
         this.conEmailSecundario = conEmailSecundario;
+        this.conTipoRede1 = conTipoRede1;
+        this.conRedeSocial1 = conRedeSocial1;
+        this.conTipoRede2 = conTipoRede2;
+        this.conRedeSocial2 = conRedeSocial2;
     }
 }

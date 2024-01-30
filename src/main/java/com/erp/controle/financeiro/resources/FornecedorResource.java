@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.erp.controle.financeiro.entities.Fornecedor;
 
 //Foi incluido na classe securitConfig o metodo para liberar acesso cors
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/fornecedores")
 public class FornecedorResource {
@@ -54,7 +54,7 @@ public class FornecedorResource {
     @GetMapping(value = "/{id}")
     public ResponseEntity<FornecedorNewDTO> findById(@PathVariable Long id) {
         Fornecedor obj = service.findById(id);
-        FornecedorNewDTO dto = service.toDTO(obj);
+        FornecedorNewDTO dto = service.toNewDTO(obj);
         return ResponseEntity.ok().body(dto);
     }
 
