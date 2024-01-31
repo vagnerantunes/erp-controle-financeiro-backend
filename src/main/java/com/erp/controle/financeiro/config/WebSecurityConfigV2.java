@@ -27,4 +27,5 @@ public class WebSecurityConfigV2 {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

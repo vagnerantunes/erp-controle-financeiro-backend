@@ -22,7 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 

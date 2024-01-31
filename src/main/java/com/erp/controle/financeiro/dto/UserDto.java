@@ -21,7 +21,6 @@ public class UserDto {
         this.role = role;
     }
 
-    // Getters and setters for the fields
 
     public Long getId() {
         return id;

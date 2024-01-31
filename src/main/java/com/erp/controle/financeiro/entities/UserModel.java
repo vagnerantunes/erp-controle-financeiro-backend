@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
 @Entity
 @Table(name = "TB_USER")
 public class UserModel implements UserDetails, Serializable {
@@ -28,12 +29,10 @@ public class UserModel implements UserDetails, Serializable {
     @Enumerated(EnumType.STRING)
     private RoleName role;
 
-    //metodos gerados da classe userdetail
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
 
     @Override
     public String getPassword() {
