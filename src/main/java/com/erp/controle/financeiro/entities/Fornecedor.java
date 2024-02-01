@@ -38,7 +38,7 @@ public class Fornecedor implements Serializable {
     //para deixar o campo null, habilite no atribute da entidade, no dto, e no construtor da entidade
     @Getter
     @Setter
-    @Column(name = "FOR_RAZAO_SOCIAL", nullable = false, length = 55)
+    @Column(name = "FOR_RAZAO_SOCIAL", length = 55)
     private String forRazaoSocial;
 
     @Getter
@@ -64,7 +64,7 @@ public class Fornecedor implements Serializable {
     @Setter
     @Column(name = "FOR_FLAG", length = 9)
     private String forFlag = "ATIVO";
-    public Fornecedor(Long forId, @NotNull String forRazaoSocial,  @NotNull String forNomeFantasia, String forCnpj, String forAnotacao) {
+    public Fornecedor(Long forId, String forRazaoSocial,  @NotNull String forNomeFantasia, String forCnpj, String forAnotacao) {
         this.forId = forId;
         this.forRazaoSocial = forRazaoSocial;
         this.forNomeFantasia = forNomeFantasia;

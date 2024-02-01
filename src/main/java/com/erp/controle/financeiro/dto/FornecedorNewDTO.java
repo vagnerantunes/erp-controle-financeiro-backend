@@ -16,7 +16,6 @@ public class FornecedorNewDTO implements Serializable {
 
     private Long forId;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
     private String forRazaoSocial;
 
     @NotEmpty(message = "Preenchimento obrigatório")
