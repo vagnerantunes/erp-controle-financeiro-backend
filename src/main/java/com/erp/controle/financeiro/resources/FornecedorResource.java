@@ -28,10 +28,6 @@ public class FornecedorResource {
     @Autowired
     private FornecedorService service;
 
-//    @Autowired
-//    public FornecedorResource(FornecedorService service) {
-//        this.service = service;
-//    }
     @GetMapping
     public ResponseEntity<List<FornecedorNewDTO>> findAll() {
         List<Fornecedor> list = service.findAll();

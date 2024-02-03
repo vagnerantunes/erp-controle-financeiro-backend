@@ -119,36 +119,6 @@ public class FornecedorService {
         return fornec;
     }
 
-//    public FornecedorNewDTO toDTO(Fornecedor obj) {
-//        FornecedorNewDTO dto = new FornecedorNewDTO();
-//
-//        // Mapeie os atributos comuns entre Fornecedor e FornecedorNewDTO
-//        dto.setForId(obj.getForId());
-//        dto.setForRazaoSocial(obj.getForRazaoSocial());
-//        dto.setForNomeFantasia(obj.getForNomeFantasia());
-//        dto.setForCnpj(obj.getForCnpj());
-//        dto.setForFlag(obj.getForFlag());
-//
-//        // Atributos específicos de EnderecoFornecedor
-//        EnderecoFornecedor endereco = obj.getEnderecos().get(0);
-//        dto.setEnfRua(endereco.getEnfRua());
-//        dto.setEnfNumero(endereco.getEnfNumero());
-//        dto.setEnfBairro(endereco.getEnfBairro());
-//        dto.setEnfCidade(endereco.getEnfCidade());
-//        dto.setEnfCep(endereco.getEnfCep());
-//        dto.setEnfEstado(endereco.getEnfEstado());
-//        dto.setEnfComplemento(endereco.getEnfComplemento());
-//
-//        // Atributos específicos de Contato
-//        Contato contato = obj.getContatos().get(0);
-//        dto.setConTelefoneComercial(contato.getConTelefoneComercial());
-//        dto.setConCelular(contato.getConCelular());
-//        dto.setConEmail(contato.getConEmail());
-//        dto.setConEmailSecundario(contato.getConEmailSecundario());
-//
-//        return dto;
-//    }
-
     public FornecedorNewDTO toNewDTO(Fornecedor obj) {
         FornecedorNewDTO dto = new FornecedorNewDTO();
 
