@@ -35,7 +35,6 @@ public class FornecedorNewDTO implements Serializable {
     private String enfRua;
     @NotNull(message = "Preenchimento obrigatório")
     private Integer enfNumero;
-
     @NotEmpty(message = "Preenchimento obrigatório")
     private String enfBairro;
     @NotEmpty(message = "Preenchimento obrigatório")

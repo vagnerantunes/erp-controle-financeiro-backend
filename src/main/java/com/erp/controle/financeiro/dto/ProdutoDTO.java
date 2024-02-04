@@ -3,6 +3,7 @@ package com.erp.controle.financeiro.dto;
 import lombok.Getter;
 import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -14,7 +15,7 @@ public class ProdutoDTO implements Serializable {
     private Long proId;
     @NotEmpty(message = "Preenchimento obrigatório")
     private String proDescricao;
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @NotNull
     private Double proPrecoCusto;
     private Double proPrecoVenda;
     private Double proEstoque;
