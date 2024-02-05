@@ -12,6 +12,8 @@ import com.erp.controle.financeiro.services.exceptions.ValueBigForAtributeExcept
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.erp.controle.financeiro.entities.Produto;
@@ -26,6 +28,10 @@ public class ProdutoService {
 
 	public List<Produto> findAll() {
 		return repository.findAll();
+	}
+
+	public Page<Produto> getAllFornecedorsPage(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 	
 	public Produto findById(Long id) {

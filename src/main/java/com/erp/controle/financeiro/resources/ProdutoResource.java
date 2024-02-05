@@ -8,6 +8,10 @@ import com.erp.controle.financeiro.dto.FornecedorNewDTO;
 import com.erp.controle.financeiro.dto.ProdutoDTO;
 import com.erp.controle.financeiro.entities.Fornecedor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +33,18 @@ public class ProdutoResource {
 		List<Produto> list = service.findAll();
 		List<ProdutoDTO> listDto = list.stream().map(obj -> service.toNewDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
+	}
+
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	public ResponseEntity<Page<Produto>> getAllFornecedorsPage(@RequestParam(defaultValue = "0") int pageNumber,
+																  @RequestParam(defaultValue = "10") int pageSize, @RequestParam(defaultValue = "proId") String sortBy,
+																  @RequestParam(defaultValue = "asc") String sortOrder) {
+
+		Sort.Direction sortDirection = sortOrder.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortDirection, sortBy));
+
+		Page<Produto> produtoPagePage = service.getAllFornecedorsPage(pageable);
+		return ResponseEntity.ok(produtoPagePage);
 	}
 
 	@GetMapping(value = "/{id}")
