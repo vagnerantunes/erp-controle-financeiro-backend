@@ -17,9 +17,10 @@ public class ProdutoDTO implements Serializable {
     private String proDescricao;
     @NotNull
     private Double proPrecoCusto;
+    @NotNull
     private Double proPrecoVenda;
+    @NotNull
     private Double proEstoque;
-    private Double proEstoqueVendido;
     private String proFlag;
     public ProdutoDTO() {
     }

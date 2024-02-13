@@ -36,18 +36,13 @@ public class Produto implements Serializable{
 	
 	@Getter
 	@Setter
-	@Column(name = "PRO_PRECO_VENDA")
+	@Column(name = "PRO_PRECO_VENDA", nullable = false)
 	private Double proPrecoVenda;
 	
 	@Getter
 	@Setter
-	@Column(name = "PRO_ESTOQUE")
+	@Column(name = "PRO_ESTOQUE", nullable = false)
 	private Double proEstoque;
-	
-	@Getter
-	@Setter
-	@Column(name = "PRO_ESTOQUE_VENDIDO")
-	private Double proEstoqueVendido;
 	
 	@Getter
 	@Setter
@@ -62,13 +57,12 @@ public class Produto implements Serializable{
 //	@OneToMany(mappedBy = "id.compra")
 //	private Set<ItemCompra> itemCompras = new HashSet<>();
 
-	public Produto(Long proId, @NotNull String proDescricao, @NotNull Double proPrecoCusto, Double proPrecoVenda, Double proEstoque, Double proEstoqueVendido) {
+	public Produto(Long proId, @NotNull String proDescricao, @NotNull Double proPrecoCusto, @NotNull Double proPrecoVenda, @NotNull Double proEstoque) {
 		this.proId = proId;
 		this.proDescricao = proDescricao;
 		this.proPrecoCusto = proPrecoCusto;
 		this.proPrecoVenda = proPrecoVenda;
 		this.proEstoque = proEstoque;
-		this.proEstoqueVendido = proEstoqueVendido;
 	}
 
 //	@JsonIgnore

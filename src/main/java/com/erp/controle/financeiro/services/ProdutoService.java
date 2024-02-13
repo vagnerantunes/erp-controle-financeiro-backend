@@ -52,7 +52,6 @@ public class ProdutoService {
 			entity.setProPrecoCusto(objDto.getProPrecoCusto());
 			entity.setProPrecoVenda(objDto.getProPrecoVenda());
 			entity.setProEstoque(objDto.getProEstoque());
-			entity.setProEstoqueVendido(objDto.getProEstoqueVendido());
 			entity.setProFlag(objDto.getProFlag());
 
 			// Salva as alterações
@@ -74,7 +73,7 @@ public class ProdutoService {
 
 	public Produto fromDTO(ProdutoDTO objDto) {
 		Produto produto = new Produto(null, objDto.getProDescricao(), objDto.getProPrecoCusto(),
-				objDto.getProPrecoVenda(), objDto.getProEstoque(), objDto.getProEstoqueVendido());
+				objDto.getProPrecoVenda(), objDto.getProEstoque());
 
 		return produto;
 	}
@@ -88,7 +87,6 @@ public class ProdutoService {
 		dto.setProPrecoCusto(obj.getProPrecoCusto());
 		dto.setProPrecoVenda(obj.getProPrecoVenda());
 		dto.setProEstoque(obj.getProEstoque());
-		dto.setProEstoqueVendido(obj.getProEstoqueVendido());
 		dto.setProFlag(obj.getProFlag());
 
 		return dto;
