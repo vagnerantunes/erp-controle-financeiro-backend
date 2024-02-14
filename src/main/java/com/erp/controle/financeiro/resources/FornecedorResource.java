@@ -14,15 +14,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.erp.controle.financeiro.entities.Fornecedor;
 
 //Foi incluido na classe securitConfig o metodo para liberar acesso cors
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/fornecedores")
 public class FornecedorResource {
@@ -30,10 +28,6 @@ public class FornecedorResource {
     @Autowired
     private FornecedorService service;
 
-//    @Autowired
-//    public FornecedorResource(FornecedorService service) {
-//        this.service = service;
-//    }
     @GetMapping
     public ResponseEntity<List<FornecedorNewDTO>> findAll() {
         List<Fornecedor> list = service.findAll();
@@ -56,7 +50,7 @@ public class FornecedorResource {
     @GetMapping(value = "/{id}")
     public ResponseEntity<FornecedorNewDTO> findById(@PathVariable Long id) {
         Fornecedor obj = service.findById(id);
-        FornecedorNewDTO dto = service.toDTO(obj);
+        FornecedorNewDTO dto = service.toNewDTO(obj);
         return ResponseEntity.ok().body(dto);
     }
 

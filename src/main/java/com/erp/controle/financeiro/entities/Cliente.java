@@ -102,5 +102,6 @@ public class Cliente implements Serializable {
         this.cliRazaoSocial = cliRazaoSocial;
         this.cliSegmento = cliSegmento;
         this.cliFlag = cliFlag;
+
     }
 }

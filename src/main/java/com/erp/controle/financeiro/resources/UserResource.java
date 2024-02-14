@@ -21,7 +21,6 @@ public class UserResource {
     @Autowired
     private UserDetailsServiceImpl service;
 
-
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = service.getAllUsers().stream()
