@@ -24,10 +24,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_formaPagamento")
 public class FormaPagamento implements Serializable{
-
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	@Getter
 	@Setter
 	@Id

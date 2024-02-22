@@ -6,13 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,7 +29,12 @@ public class Cliente implements Serializable {
 
     @Getter
     @Setter
-    @Column(length = 45, name = "CLI_NOME")
+    @OneToMany(mappedBy = "conForId", cascade = CascadeType.ALL)
+    private List<Contato> contatos = new ArrayList<>();
+
+    @Getter
+    @Setter
+    @Column(length = 55, name = "CLI_NOME", nullable = false)
     private String cliNome;
 
     @Getter

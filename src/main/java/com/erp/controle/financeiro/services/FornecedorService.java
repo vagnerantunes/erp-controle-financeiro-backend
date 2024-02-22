@@ -1,6 +1,7 @@
 package com.erp.controle.financeiro.services;
 
 import com.erp.controle.financeiro.dto.FornecedorNewDTO;
+import com.erp.controle.financeiro.entities.Cliente;
 import com.erp.controle.financeiro.entities.Contato;
 import com.erp.controle.financeiro.entities.EnderecoFornecedor;
 import com.erp.controle.financeiro.entities.Fornecedor;
@@ -105,11 +106,13 @@ public class FornecedorService {
         Fornecedor fornec = new Fornecedor(null, objDto.getForRazaoSocial(), objDto.getForNomeFantasia(),
                 objDto.getForCnpj(), objDto.getForAnotacao());
 
+        Cliente cli = new Cliente();
+
         EnderecoFornecedor ender = new EnderecoFornecedor(null, fornec, objDto.getEnfRua(), objDto.getEnfNumero(),
                 objDto.getEnfBairro(), objDto.getEnfCidade(), objDto.getEnfCep(),
                 objDto.getEnfEstado(), objDto.getEnfComplemento());
 
-        Contato contato = new Contato(null, fornec, objDto.getConTelefoneComercial(), objDto.getConCelular(),
+        Contato contato = new Contato(null, fornec, cli, objDto.getConTelefoneComercial(), objDto.getConCelular(),
                 objDto.getConEmail(), objDto.getConEmailSecundario(), objDto.getConTipoRede1(), objDto.getConRedeSocial1(),
                 objDto.getConTipoRede2(), objDto.getConRedeSocial2());
 

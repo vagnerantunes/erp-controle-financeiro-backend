@@ -19,13 +19,10 @@ public class UserModel implements UserDetails, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USU_ID")
     private Long id;
-
     @Column(nullable = false, unique = true)
     private String username;
-
     @Column(nullable = false)
     private String password;
-
     @Enumerated(EnumType.STRING)
     private RoleName role;
 
