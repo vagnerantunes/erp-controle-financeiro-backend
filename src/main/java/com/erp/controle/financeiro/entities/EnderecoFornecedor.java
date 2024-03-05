@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -62,6 +61,7 @@ public class EnderecoFornecedor implements Serializable {
     @Setter
     @Column(name = "ENF_COMPLEMENTO", length = 150, nullable = false)
     private String enfComplemento;
+
     public EnderecoFornecedor(Long enfId, @NotNull Fornecedor enfForId, @NotNull String enfRua, @NotNull Integer enfNumero, @NotNull String enfBairro, @NotNull String enfCidade, @NotNull String enfCep, @NotNull String enfEstado, @NotNull String enfComplemento) {
         this.enfId = enfId;
         this.enfForId = enfForId;

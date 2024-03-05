@@ -1,8 +1,7 @@
 package com.erp.controle.financeiro.services;
 
 import com.erp.controle.financeiro.dto.FornecedorNewDTO;
-import com.erp.controle.financeiro.entities.Cliente;
-import com.erp.controle.financeiro.entities.Contato;
+import com.erp.controle.financeiro.entities.ContatoFornecedor;
 import com.erp.controle.financeiro.entities.EnderecoFornecedor;
 import com.erp.controle.financeiro.entities.Fornecedor;
 import com.erp.controle.financeiro.repositories.EnderecoFornecedorRepository;
@@ -74,15 +73,15 @@ public class FornecedorService {
             endereco.setEnfComplemento(objDto.getEnfComplemento());
 
             // Atualiza o contato
-            Contato contato = entity.getContatos().get(0); // Assumindo que há apenas um contato por cliente
-            contato.setConTelefoneComercial(objDto.getConTelefoneComercial());
-            contato.setConCelular(objDto.getConCelular());
-            contato.setConEmail(objDto.getConEmail());
-            contato.setConEmailSecundario(objDto.getConEmailSecundario());
-            contato.setConTipoRede1(objDto.getConTipoRede1());
-            contato.setConRedeSocial1(objDto.getConRedeSocial1());
-            contato.setConTipoRede2(objDto.getConTipoRede2());
-            contato.setConRedeSocial2(objDto.getConRedeSocial2());
+            ContatoFornecedor contatoFornecedor = entity.getContatoFornecedors().get(0); // Assumindo que há apenas um contato por cliente
+            contatoFornecedor.setConTelefoneComercial(objDto.getConTelefoneComercial());
+            contatoFornecedor.setConCelular(objDto.getConCelular());
+            contatoFornecedor.setConEmail(objDto.getConEmail());
+            contatoFornecedor.setConEmailSecundario(objDto.getConEmailSecundario());
+            contatoFornecedor.setConTipoRede1(objDto.getConTipoRede1());
+            contatoFornecedor.setConRedeSocial1(objDto.getConRedeSocial1());
+            contatoFornecedor.setConTipoRede2(objDto.getConTipoRede2());
+            contatoFornecedor.setConRedeSocial2(objDto.getConRedeSocial2());
 
             // Salva as alterações
             repository.save(entity);
@@ -106,18 +105,16 @@ public class FornecedorService {
         Fornecedor fornec = new Fornecedor(null, objDto.getForRazaoSocial(), objDto.getForNomeFantasia(),
                 objDto.getForCnpj(), objDto.getForAnotacao());
 
-        Cliente cli = new Cliente();
-
         EnderecoFornecedor ender = new EnderecoFornecedor(null, fornec, objDto.getEnfRua(), objDto.getEnfNumero(),
                 objDto.getEnfBairro(), objDto.getEnfCidade(), objDto.getEnfCep(),
                 objDto.getEnfEstado(), objDto.getEnfComplemento());
 
-        Contato contato = new Contato(null, fornec, cli, objDto.getConTelefoneComercial(), objDto.getConCelular(),
+        ContatoFornecedor contatoFornecedor = new ContatoFornecedor(null, fornec, objDto.getConTelefoneComercial(), objDto.getConCelular(),
                 objDto.getConEmail(), objDto.getConEmailSecundario(), objDto.getConTipoRede1(), objDto.getConRedeSocial1(),
                 objDto.getConTipoRede2(), objDto.getConRedeSocial2());
 
         fornec.getEnderecos().add(ender);
-        fornec.getContatos().add(contato);
+        fornec.getContatoFornecedors().add(contatoFornecedor);
 
         return fornec;
     }
@@ -144,15 +141,15 @@ public class FornecedorService {
         dto.setEnfComplemento(endereco.getEnfComplemento());
 
         // Atributos específicos de Contato
-        Contato contato = obj.getContatos().get(0);
-        dto.setConTelefoneComercial(contato.getConTelefoneComercial());
-        dto.setConCelular(contato.getConCelular());
-        dto.setConEmail(contato.getConEmail());
-        dto.setConEmailSecundario(contato.getConEmailSecundario());
-        dto.setConTipoRede1(contato.getConTipoRede1());
-        dto.setConRedeSocial1(contato.getConRedeSocial1());
-        dto.setConTipoRede2(contato.getConTipoRede2());
-        dto.setConRedeSocial2(contato.getConRedeSocial2());
+        ContatoFornecedor contatoFornecedor = obj.getContatoFornecedors().get(0);
+        dto.setConTelefoneComercial(contatoFornecedor.getConTelefoneComercial());
+        dto.setConCelular(contatoFornecedor.getConCelular());
+        dto.setConEmail(contatoFornecedor.getConEmail());
+        dto.setConEmailSecundario(contatoFornecedor.getConEmailSecundario());
+        dto.setConTipoRede1(contatoFornecedor.getConTipoRede1());
+        dto.setConRedeSocial1(contatoFornecedor.getConRedeSocial1());
+        dto.setConTipoRede2(contatoFornecedor.getConTipoRede2());
+        dto.setConRedeSocial2(contatoFornecedor.getConRedeSocial2());
 
         return dto;
     }

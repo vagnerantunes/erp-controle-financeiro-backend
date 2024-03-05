@@ -1,7 +1,6 @@
 package com.erp.controle.financeiro.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +16,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_cliente")
 public class Cliente implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -30,7 +28,7 @@ public class Cliente implements Serializable {
     @Getter
     @Setter
     @OneToMany(mappedBy = "conForId", cascade = CascadeType.ALL)
-    private List<Contato> contatos = new ArrayList<>();
+    private List<ContatoFornecedor> contatoFornecedors = new ArrayList<>();
 
     @Getter
     @Setter

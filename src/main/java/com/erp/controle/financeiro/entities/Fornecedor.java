@@ -33,7 +33,7 @@ public class Fornecedor implements Serializable {
     @Getter
     @Setter
     @OneToMany(mappedBy = "conForId", cascade = CascadeType.ALL)
-    private List<Contato> contatos = new ArrayList<>();
+    private List<ContatoFornecedor> contatoFornecedors = new ArrayList<>();
 
     //para deixar o campo null, habilite no atribute da entidade, no dto, e no construtor da entidade
     @Getter

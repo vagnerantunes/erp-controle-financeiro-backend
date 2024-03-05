@@ -1,7 +1,6 @@
 package com.erp.controle.financeiro.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +11,8 @@ import java.io.Serializable;
 
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_contato")
-public class Contato implements Serializable {
+@Table(name = "tb_contato_fornecedor")
+public class ContatoFornecedor implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -26,11 +25,6 @@ public class Contato implements Serializable {
     @ManyToOne
     @JoinColumn(name = "CON_FOR_ID", nullable = false)
     private Fornecedor conForId;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "CON_CLI_ID", nullable = false)
-    private Cliente concLIId;
 
     @Getter
     @Setter
@@ -72,10 +66,9 @@ public class Contato implements Serializable {
     @Column(length = 55, name = "CON_REDE_SOCIAL2")
     private String conRedeSocial2;
 
-    public Contato(Long conId, Fornecedor conForId, Cliente concLIId ,String conTelefoneComercial, @NotNull String conCelular, String conEmail, String conEmailSecundario, String conTipoRede1, String conRedeSocial1, String conTipoRede2, String conRedeSocial2) {
+    public ContatoFornecedor(Long conId, Fornecedor conForId, String conTelefoneComercial, @NotNull String conCelular, String conEmail, String conEmailSecundario, String conTipoRede1, String conRedeSocial1, String conTipoRede2, String conRedeSocial2) {
         this.conId = conId;
         this.conForId = conForId;
-        this.concLIId = concLIId;
         this.conTelefoneComercial = conTelefoneComercial;
         this.conCelular = conCelular;
         this.conEmail = conEmail;

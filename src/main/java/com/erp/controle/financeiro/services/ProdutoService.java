@@ -3,11 +3,7 @@ package com.erp.controle.financeiro.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.erp.controle.financeiro.dto.FornecedorNewDTO;
 import com.erp.controle.financeiro.dto.ProdutoDTO;
-import com.erp.controle.financeiro.entities.Contato;
-import com.erp.controle.financeiro.entities.EnderecoFornecedor;
-import com.erp.controle.financeiro.entities.Fornecedor;
 import com.erp.controle.financeiro.services.exceptions.ValueBigForAtributeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
