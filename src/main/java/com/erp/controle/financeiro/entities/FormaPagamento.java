@@ -23,65 +23,61 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Entity
 @Table(name = "tb_formaPagamento")
-public class FormaPagamento implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class FormaPagamento implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	@Getter
-	@Setter
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "FPG_ID")
-	private Long fpgId;
-	
-	@Getter
-	@Setter
-	@Column(name = "FPG_TIPO_CONTA")
-	private String fpgTipoConta;
-	
-	@Getter
-	@Setter
-	@Column(name = "FPG_DESCRICAO")
-	private String fpgDescricao;
-	
-	@Getter
-	@Setter
-	@Column(name = "FPG_TIPO")
-	private String fpgTipo;
-	
-	@Getter
-	@Setter
-	@Column(name = "FPG_QTD_PARCELA")
-	private Integer fpgQtdParcela;
-	
-	@Getter
-	@Setter
-	@Column(name = "FPG_PORCENTAGEM")
-	private Double fpgPorcentagem;
-	
-	@Getter
-	@Setter
-	@Column(name = "FPG_FLAG")
-	private String fpgFlag;
-	
-	@Getter
-	@JsonIgnore
-	@OneToMany(mappedBy = "pagamentos")
-	private List<Venda> vendas = new ArrayList<>();
-	
-	public FormaPagamento() {
-		super();
-	}
+    @Getter
+    @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "FPG_ID")
+    private Long fpgId;
 
-	public FormaPagamento(Long fpgId, String fpgTipoConta, String fpgDescricao, String fpgTipo, Integer fpgQtdParcela,
-			Double fpgPorcentagem, String fpgFlag) {
-		super();
-		this.fpgId = fpgId;
-		this.fpgTipoConta = fpgTipoConta;
-		this.fpgDescricao = fpgDescricao;
-		this.fpgTipo = fpgTipo;
-		this.fpgQtdParcela = fpgQtdParcela;
-		this.fpgPorcentagem = fpgPorcentagem;
-		this.fpgFlag = fpgFlag;
-	}
-	
+    @Getter
+    @Setter
+    @Column(name = "FPG_DESCRICAO")
+    private String fpgDescricao;
+
+    @Getter
+    @Setter
+    @Column(name = "FPG_TIPO")
+    private String fpgTipo;
+
+    @Getter
+    @Setter
+    @Column(name = "FPG_QTD_PARCELA")
+    private Integer fpgQtdParcela;
+
+    @Getter
+    @Setter
+    @Column(name = "FPG_PORCENTAGEM_DESCONTO")
+    private Double fpgPorcentagemDesconto;
+
+    @Getter
+    @Setter
+    @Column(name = "FPG_PORCENTAGEM_ACRESCIMO")
+    private Double fpgPorcentagemAcrescimo;
+
+    @Getter
+    @Setter
+    @Column(name = "FPG_FLAG")
+    private String fpgFlag = "ATIVO";
+
+//	@Getter
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "pagamentos")
+//	private List<Venda> vendas = new ArrayList<>();
+
+    public FormaPagamento() {
+        super();
+    }
+
+    public FormaPagamento(Long fpgId, String fpgDescricao, String fpgTipo, Integer fpgQtdParcela, Double fpgPorcentagemDesconto, Double fpgPorcentagemAcrescimo) {
+        this.fpgId = fpgId;
+        this.fpgDescricao = fpgDescricao;
+        this.fpgTipo = fpgTipo;
+        this.fpgQtdParcela = fpgQtdParcela;
+        this.fpgPorcentagemDesconto = fpgPorcentagemDesconto;
+        this.fpgPorcentagemAcrescimo = fpgPorcentagemAcrescimo;
+    }
 }

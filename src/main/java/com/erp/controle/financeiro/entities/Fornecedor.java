@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_fornecedor")
 public class Fornecedor implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Getter
@@ -29,6 +29,7 @@ public class Fornecedor implements Serializable {
     @Setter
     @OneToMany(mappedBy = "enfForId", cascade = CascadeType.ALL)
     private List<EnderecoFornecedor> enderecos = new ArrayList<>();
+
 
     @Getter
     @Setter

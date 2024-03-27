@@ -18,7 +18,6 @@ import java.util.Optional;
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
     final UserRepository userRepository;
-
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

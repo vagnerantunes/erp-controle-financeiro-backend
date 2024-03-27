@@ -3,88 +3,57 @@ package com.erp.controle.financeiro.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.erp.controle.financeiro.dto.ProdutoDTO;
-import com.erp.controle.financeiro.services.exceptions.ValueBigForAtributeException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Service;
-
 import com.erp.controle.financeiro.entities.Produto;
+import com.erp.controle.financeiro.repositories.FornecedorRepository;
 import com.erp.controle.financeiro.repositories.ProdutoRepository;
-import com.erp.controle.financeiro.services.exceptions.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProdutoService {
-	
 	@Autowired
 	private ProdutoRepository repository;
 
-	public List<Produto> findAll() {
+	@Autowired
+	private FornecedorService fornecedorService;
+
+	public List<Produto> getAll() {
 		return repository.findAll();
 	}
-	
-	public Produto findById(Long id) {
-		Optional<Produto> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));	
+
+	public Page<Produto> getAllPage(Pageable pageable) {
+		return repository.findAll(pageable);
+	}
+	public Optional<Produto> findById(Long id) {
+		return repository.findById(id);
 	}
 
 	public Produto insert(Produto obj) {
-		try {
-			obj.setProId(null);
-			obj = repository.save(obj);
-			return obj;
-		} catch (DataIntegrityViolationException e) {
-			throw new ValueBigForAtributeException(e.getMessage());
-		}
+		obj.setProId(null);
+		obj.setFornecedor(fornecedorService.findById(obj.getFornecedor().getForId()));
+		obj = repository.save(obj);
+		return obj;
 	}
 
-	public Produto update(Long id, ProdutoDTO objDto) {
-		try {
-			Produto entity = findById(id);
+	@SuppressWarnings("deprecation")
+	public Produto update(Long id, Produto obj) {
+		Produto entity = repository.getOne(id);
+		updateData(entity, obj);
+		return repository.save(entity);
+	}
 
-			// Atualiza os dados do produto
-			entity.setProDescricao(objDto.getProDescricao());
-			entity.setProPrecoCusto(objDto.getProPrecoCusto());
-			entity.setProPrecoVenda(objDto.getProPrecoVenda());
-			entity.setProEstoque(objDto.getProEstoque());
-			entity.setProFlag(objDto.getProFlag());
-
-			// Salva as alterações
-			repository.save(entity);
-
-			return entity;
-		} catch (DataIntegrityViolationException e) {
-			throw new ValueBigForAtributeException(e.getMessage());
-		}
+	private void updateData(Produto entity, Produto obj) {
+		entity.setFornecedor(obj.getFornecedor());
+		entity.setProDescricao(obj.getProDescricao());
+		entity.setProPrecoCusto(obj.getProPrecoCusto());
+		entity.setProPrecoVenda(obj.getProPrecoVenda());
+		entity.setProEstoque(obj.getProEstoque());
+		entity.setProFlag(obj.getProFlag());
 	}
 
 	public void delete(Long id) {
-		try {
-			repository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException(id);
-		}
-	}
-
-	public Produto fromDTO(ProdutoDTO objDto) {
-		Produto produto = new Produto(null, objDto.getProDescricao(), objDto.getProPrecoCusto(),
-				objDto.getProPrecoVenda(), objDto.getProEstoque());
-
-		return produto;
-	}
-
-	public ProdutoDTO toNewDTO(Produto obj) {
-		ProdutoDTO dto = new ProdutoDTO();
-
-		// Mapeie os atributos comuns entre Fornecedor e FornecedorNewDTO
-		dto.setProId(obj.getProId());
-		dto.setProDescricao(obj.getProDescricao());
-		dto.setProPrecoCusto(obj.getProPrecoCusto());
-		dto.setProPrecoVenda(obj.getProPrecoVenda());
-		dto.setProEstoque(obj.getProEstoque());
-		dto.setProFlag(obj.getProFlag());
-
-		return dto;
+		repository.deleteById(id);
 	}
 }

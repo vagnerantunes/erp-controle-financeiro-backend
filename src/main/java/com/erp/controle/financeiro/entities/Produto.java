@@ -1,12 +1,8 @@
 package com.erp.controle.financeiro.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +19,13 @@ public class Produto implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PRO_ID")
 	private Long proId;
-	
+
+	@Getter
+	@Setter
+	@ManyToOne
+	@JoinColumn(name="fornecedor_id")
+	private Fornecedor fornecedor;
+
 	@Getter
 	@Setter
 	@Column(name = "PRO_DESCRICAO", nullable = false, length = 100)
@@ -57,13 +59,15 @@ public class Produto implements Serializable{
 //	@OneToMany(mappedBy = "id.compra")
 //	private Set<ItemCompra> itemCompras = new HashSet<>();
 
-	public Produto(Long proId, @NotNull String proDescricao, @NotNull Double proPrecoCusto, @NotNull Double proPrecoVenda, @NotNull Double proEstoque) {
+	public Produto(Long proId, Fornecedor fornecedor,String proDescricao, Double proPrecoCusto, Double proPrecoVenda, Double proEstoque) {
 		this.proId = proId;
+		this.fornecedor = fornecedor;
 		this.proDescricao = proDescricao;
 		this.proPrecoCusto = proPrecoCusto;
 		this.proPrecoVenda = proPrecoVenda;
 		this.proEstoque = proEstoque;
 	}
+
 
 //	@JsonIgnore
 //	public Set<Venda> getVendas(){
@@ -73,7 +77,7 @@ public class Produto implements Serializable{
 //		}
 //		return set;
 //	}
-//
+
 //	@JsonIgnore
 //	public Set<Compra> getCompras(){
 //		Set<Compra> set = new HashSet<>();
@@ -82,4 +86,5 @@ public class Produto implements Serializable{
 //		}
 //		return set;
 //	}
+
 }

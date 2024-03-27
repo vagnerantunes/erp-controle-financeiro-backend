@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,8 +28,13 @@ public class Cliente implements Serializable {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "conForId", cascade = CascadeType.ALL)
-    private List<ContatoFornecedor> contatoFornecedors = new ArrayList<>();
+    @OneToMany(mappedBy = "encCliId", cascade = CascadeType.ALL)
+    private List<EnderecoCliente> enderecoClientes = new ArrayList<>();
+
+    @Getter
+    @Setter
+    @OneToMany(mappedBy = "cclCliId", cascade = CascadeType.ALL)
+    private List<ContatoCliente> contatoClientes = new ArrayList<>();
 
     @Getter
     @Setter
@@ -42,8 +48,13 @@ public class Cliente implements Serializable {
 
     @Getter
     @Setter
-    @Column(length = 15, name = "CLI_CFP_CNPJ")
-    private String cliCpfCnpj;
+    @Column(length = 14, name = "CLI_CPF")
+    private String cliCpf;
+
+    @Getter
+    @Setter
+    @Column(length = 18, name = "CLI_CNPJ")
+    private String cliCnpj;
 
     @Getter
     @Setter
@@ -53,52 +64,23 @@ public class Cliente implements Serializable {
 
     @Getter
     @Setter
-    @Column(length = 15, name = "CLI_CONTATO")
-    private String cliContato;
+    @Column(length = 9, name = "CLI_FLAG")
+    private String cliFlag = "ATIVO";
 
-    @Getter
-    @Setter
-    @Column(length = 45, name = "CLI_EMAIL")
-    private String cliEmail;
-
-    @Getter
-    @Setter
-    @Column(length = 45, name = "CLI_RAZAO_SOCIAL")
-    private String cliRazaoSocial;
-
-    @Getter
-    @Setter
-    @Column(length = 45, name = "CLI_SEGMENTO")
-    private String cliSegmento;
-
-    @Getter
-    @Setter
-    @Column(length = 1, name = "CLI_FLAG")
-    private String cliFlag;
-
-    // Lista não tem Set, somente Get.
-    @Getter
-    @JsonIgnore
-    @OneToMany(mappedBy = "clientes")
-    private List<Venda> vendas = new ArrayList<>();
+//    // Lista não tem Set, somente Get.
+//    @Getter
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "clientes")
+//    private List<Venda> vendas = new ArrayList<>();
 
     public Cliente() {
     }
-
-    public Cliente(Long cliId, String cliNome, String cliTipo, String cliCpfCnpj, Date cliDataNascimento,
-                   String cliContato, String cliEmail, String cliRazaoSocial,
-                   String cliSegmento, String cliFlag) {
-        super();
+    public Cliente(Long cliId, @NotNull String cliNome, String cliTipo, String cliCpf, String cliCnpj, Date cliDataNascimento) {
         this.cliId = cliId;
         this.cliNome = cliNome;
         this.cliTipo = cliTipo;
-        this.cliCpfCnpj = cliCpfCnpj;
+        this.cliCpf = cliCpf;
+        this.cliCnpj = cliCnpj;
         this.cliDataNascimento = cliDataNascimento;
-        this.cliContato = cliContato;
-        this.cliEmail = cliEmail;
-        this.cliRazaoSocial = cliRazaoSocial;
-        this.cliSegmento = cliSegmento;
-        this.cliFlag = cliFlag;
-
     }
 }
