@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.erp.controle.financeiro.entities.Produto;
-import com.erp.controle.financeiro.repositories.FornecedorRepository;
 import com.erp.controle.financeiro.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

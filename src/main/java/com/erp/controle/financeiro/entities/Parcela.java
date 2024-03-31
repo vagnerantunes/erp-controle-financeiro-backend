@@ -47,10 +47,10 @@ public class Parcela implements Serializable{
 	@Setter
 	private PagamentoStatus PVD_SITUACAO;
 	
-	@Getter
-	@JsonIgnore	
-	@ManyToMany(mappedBy = "parcelas")
-	private Set<Venda> pedidos = new HashSet<>();	
+//	@Getter
+//	@JsonIgnore
+//	@ManyToMany(mappedBy = "parcelas")
+//	private Set<Venda> pedidos = new HashSet<>();
 	
 	public Parcela() {		
 	}
