@@ -12,6 +12,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/*
+implementacao de classe em cascata, onde cadastra o cliente e tbm endereco e contato deles. tem dto.
+ */
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_fornecedor")

@@ -20,6 +20,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+implementacao de classe unica. tem somente a forma de pagamento
+ */
 @EqualsAndHashCode
 @Entity
 @Table(name = "tb_formaPagamento")

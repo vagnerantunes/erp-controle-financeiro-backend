@@ -14,6 +14,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+implementacao de classe em cascata, onde cadastra o cliente e tbm endereco e contato deles. tem dto.
+ */
 @Entity
 @Table(name = "tb_cliente")
 public class Cliente implements Serializable {

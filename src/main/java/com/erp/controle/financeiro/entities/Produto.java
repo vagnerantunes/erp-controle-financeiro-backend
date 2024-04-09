@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/*
+implementacao de classe com chave estrangeira
+ */
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_produto")
