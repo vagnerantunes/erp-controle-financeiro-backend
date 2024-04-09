@@ -27,15 +27,10 @@ public class Venda implements Serializable{
 	@Column(name = "VEN_ID")
 	private Long venId;
 	
-//	@Getter
-//	@OneToMany(mappedBy = "id.venda")
-//	private Set<ItemVenda> itemVendas = new HashSet<>();
-	
-//	@Getter
-//	@ManyToMany
-//	@JoinTable(name = "tb_venda_parcela", joinColumns = @JoinColumn(name = "venda_id"),
-//	inverseJoinColumns = @JoinColumn(name = "parcela_id"))
-//	private Set<Parcela> parcelas = new HashSet<>();
+	@Getter
+	@Setter
+	@OneToMany(mappedBy = "id.venda")
+	private Set<ItemVenda> itens = new HashSet<>();
 
 	@Getter
 	@Setter
@@ -63,11 +58,6 @@ public class Venda implements Serializable{
 	
 	@Getter
 	@Setter
-	@Column(name = "VEN_VALOR_TOTAL")
-	private Double venValorTotal;
-	
-	@Getter
-	@Setter
 	@Column(name = "VEN_DESCONTO")
 	private Double venDesconto;
 	
@@ -83,24 +73,23 @@ public class Venda implements Serializable{
 	public Venda() {
 	}
 	public Venda(Long venId, Cliente cliente, FormaPagamento fpagamento, Vendedor vendedor,Date venData,
-				 Double venValorTotal, Double venDesconto, Double venJuros, String venStatus) {
+				 Double venDesconto, Double venJuros, String venStatus) {
 		this.venId = venId;
 		this.cliente = cliente;
 		this.fpagamento = fpagamento;
 		this.vendedor = vendedor;
 		this.venData = venData;
-		this.venValorTotal = venValorTotal;
 		this.venDesconto = venDesconto;
 		this.venJuros = venJuros;
 		this.venStatus = venStatus;
 	}
 
-//	public Double getTotal() {
-//		Double sum = 0.0;
-//		for (ItemVenda x : itemVendas) {
-//			sum = sum + x.getSubTotal();
-//		}
-//		return sum;
-//
-//	}
+	public Double getTotal() {
+		Double sum = 0.0;
+		for (ItemVenda x : itens) {
+			sum = sum + x.getTotalVenda();
+		}
+		return sum;
+
+	}
 }

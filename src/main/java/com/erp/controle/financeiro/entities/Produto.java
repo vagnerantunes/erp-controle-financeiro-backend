@@ -1,8 +1,11 @@
 package com.erp.controle.financeiro.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -50,11 +53,13 @@ public class Produto implements Serializable{
 	@Setter
 	@Column(name = "PRO_FLAG", length = 9)
 	private String proFlag = "ATIVO";
-	
-//	@Getter
-//	@OneToMany(mappedBy = "id.produto")
-//	private Set<ItemVenda> itemVendas = new HashSet<>();
-//
+
+	@JsonIgnore
+	@Getter
+	@Setter
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ItemVenda> itemVendas = new HashSet<>();
+
 //	@Getter
 //	@OneToMany(mappedBy = "id.compra")
 //	private Set<ItemCompra> itemCompras = new HashSet<>();

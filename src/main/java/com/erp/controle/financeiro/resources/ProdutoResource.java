@@ -33,8 +33,8 @@ public class ProdutoResource {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Produto> findById(@PathVariable Long id) {
-		Optional<Produto> produto = service.findById(id);
-		return produto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+		Produto obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 
 	@DeleteMapping(value = "/{id}")

@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import com.erp.controle.financeiro.config.UserDetailsServiceImpl;
 import com.erp.controle.financeiro.entities.FormaPagamento;
+import com.erp.controle.financeiro.entities.ItemVenda;
 import com.erp.controle.financeiro.entities.Produto;
+import com.erp.controle.financeiro.repositories.ItemVendaRepository;
 import com.erp.controle.financeiro.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,12 @@ public class VendaService {
     @Autowired
     private FormaPagamentoService formaPagamentoService;
 
+    @Autowired
+    private ItemVendaRepository itemVendaRepository;
+
+    @Autowired
+    private ProdutoService produtoService;
+
     public List<Venda> getAll() {
         return repository.findAll();
     }
@@ -43,6 +51,18 @@ public class VendaService {
         obj.setVenId(null);
         obj.setCliente(clienteService.findById(obj.getCliente().getCliId()));
         obj = repository.save(obj);
+
+        for (ItemVenda iv : obj.getItens()){
+            // no findById de produto é preciso ter o ObjectNotFoundException
+            iv.setProduto(produtoService.findById(iv.getProduto().getProId()));
+            /*iv.setItvQtd(0.0); para gravar um valor que o usuário digitar, não coloque nada no serviço como nesse caso da qtd
+            //caso queira que o usuário digite o valor de venda e custo somente abaixo os dois campos
+            */
+            iv.setItvPrecoVenda(iv.getProduto().getProPrecoVenda());
+            iv.setItvPrecoCusto(iv.getProduto().getProPrecoCusto());
+            iv.setVenda(obj);
+        }
+        itemVendaRepository.saveAll(obj.getItens());
         return obj;
     }
 
@@ -58,7 +78,6 @@ public class VendaService {
         entity.setFpagamento(obj.getFpagamento());
         entity.setVendedor(obj.getVendedor());
         entity.setVenData(obj.getVenData());
-        entity.setVenValorTotal(obj.getVenValorTotal());
         entity.setVenDesconto(obj.getVenDesconto());
         entity.setVenJuros(obj.getVenJuros());
         entity.setVenStatus(obj.getVenStatus());
