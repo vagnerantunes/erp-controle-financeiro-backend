@@ -66,4 +66,9 @@ public class ItemVenda implements Serializable{
 		return itvPrecoVenda * itvQtd;
 		
 	}
+
+	public Double getTotalCusto() {
+		return itvPrecoCusto * itvQtd;
+
+	}
 }

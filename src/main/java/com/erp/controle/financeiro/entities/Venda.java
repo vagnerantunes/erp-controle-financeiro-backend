@@ -83,12 +83,20 @@ public class Venda implements Serializable{
 		this.venStatus = venStatus;
 	}
 
-	public Double getTotal() {
+	public Double getTotalVenda() {
 		Double sum = 0.0;
 		for (ItemVenda x : itens) {
 			sum = sum + x.getTotalVenda();
 		}
+		sum = ((sum + venJuros) - venDesconto);
 		return sum;
+	}
 
+	public Double getTotalCusto() {
+		Double sum = 0.0;
+		for (ItemVenda x : itens) {
+			sum = sum + x.getTotalCusto();
+		}
+		return sum;
 	}
 }
