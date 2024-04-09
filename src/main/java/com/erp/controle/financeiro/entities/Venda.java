@@ -1,16 +1,10 @@
 package com.erp.controle.financeiro.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.*;
-
-import com.erp.controle.financeiro.enums.PagamentoStatus;
-import com.erp.controle.financeiro.enums.VendaStatus;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
