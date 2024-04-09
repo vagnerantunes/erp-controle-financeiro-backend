@@ -54,7 +54,7 @@ public class Venda implements Serializable{
 	@Setter
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
 	@Column(name = "VEN_DATA")
-	private Date venData;
+	private Date venData = new Date();
 	
 	@Getter
 	@Setter
@@ -72,13 +72,12 @@ public class Venda implements Serializable{
 	private String venStatus;
 	public Venda() {
 	}
-	public Venda(Long venId, Cliente cliente, FormaPagamento fpagamento, Vendedor vendedor,Date venData,
+	public Venda(Long venId, Cliente cliente, FormaPagamento fpagamento, Vendedor vendedor,
 				 Double venDesconto, Double venJuros, String venStatus) {
 		this.venId = venId;
 		this.cliente = cliente;
 		this.fpagamento = fpagamento;
 		this.vendedor = vendedor;
-		this.venData = venData;
 		this.venDesconto = venDesconto;
 		this.venJuros = venJuros;
 		this.venStatus = venStatus;
