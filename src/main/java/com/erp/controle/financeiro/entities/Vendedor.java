@@ -37,10 +37,8 @@ public class Vendedor implements Serializable {
     @Setter
     @Column(length = 55, name = "VND_OBS")
     private String vndObs;
-
     public Vendedor() {
     }
-
     public Vendedor(Long vndId, String vndNome, String vndCargo, String vndObs) {
         this.vndId = vndId;
         this.vndNome = vndNome;
