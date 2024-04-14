@@ -23,7 +23,7 @@ public class UserResource {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        List<UserDto> users = service.getAllUsers().stream()
+        List <UserDto> users = service.getAllUsers().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(users, HttpStatus.OK);
