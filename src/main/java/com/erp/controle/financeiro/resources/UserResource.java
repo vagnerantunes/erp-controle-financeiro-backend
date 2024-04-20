@@ -53,4 +53,5 @@ public class UserResource {
     private UserDto convertToDto(UserModel user) {
         return new UserDto(user.getId(), user.getUsername(), user.getPassword(), user.getRole());
     }
+
 }
