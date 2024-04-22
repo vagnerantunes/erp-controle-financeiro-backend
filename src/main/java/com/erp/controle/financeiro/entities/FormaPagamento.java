@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,49 +39,55 @@ public class FormaPagamento implements Serializable {
 
     @Getter
     @Setter
-    @Column(name = "FPG_DESCRICAO")
+    @Column(name = "FPG_DESCRICAO", length = 50, nullable = false)
     private String fpgDescricao;
 
     @Getter
     @Setter
-    @Column(name = "FPG_TIPO")
+    @Column(name = "FPG_TIPO", length = 10, nullable = false)
     private String fpgTipo;
 
     @Getter
     @Setter
-    @Column(name = "FPG_QTD_PARCELA")
+    @Column(name = "FPG_QTD_PARCELA", nullable = false)
     private Integer fpgQtdParcela;
 
     @Getter
     @Setter
-    @Column(name = "FPG_PORCENTAGEM_DESCONTO")
-    private Double fpgPorcentagemDesconto;
+    @Column(name = "FPG_APROVACAO", length = 3, nullable = false)
+    private String fpgAprovacao;
 
     @Getter
     @Setter
-    @Column(name = "FPG_PORCENTAGEM_ACRESCIMO")
-    private Double fpgPorcentagemAcrescimo;
+    @Column(name = "FPG_ACRESCIMO_DESCONTO", length = 9)
+    private String fpgTipoAcresDesc;
 
     @Getter
     @Setter
-    @Column(name = "FPG_FLAG")
+    @Column(name = "FPG_VALOR")
+    private Double fpgValor;
+
+    @Getter
+    @Setter
+    @Column(name = "FPG_DESCRICAO_ACRES_DESC")
+    private String fpgDescricaoAcreDesc;
+
+    @Getter
+    @Setter
+    @Column(name = "FPG_FLAG", length = 9)
     private String fpgFlag = "ATIVO";
-
-//	@Getter
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "pagamentos")
-//	private List<Venda> vendas = new ArrayList<>();
-
     public FormaPagamento() {
         super();
     }
 
-    public FormaPagamento(Long fpgId, String fpgDescricao, String fpgTipo, Integer fpgQtdParcela, Double fpgPorcentagemDesconto, Double fpgPorcentagemAcrescimo) {
+    public FormaPagamento(Long fpgId, @NotNull String fpgDescricao, @NotNull String fpgTipo, @NotNull Integer fpgQtdParcela, @NotNull String fpgAprovacao, String fpgTipoAcresDesc, Double fpgValor, String fpgDescricaoAcreDesc) {
         this.fpgId = fpgId;
         this.fpgDescricao = fpgDescricao;
         this.fpgTipo = fpgTipo;
         this.fpgQtdParcela = fpgQtdParcela;
-        this.fpgPorcentagemDesconto = fpgPorcentagemDesconto;
-        this.fpgPorcentagemAcrescimo = fpgPorcentagemAcrescimo;
+        this.fpgAprovacao = fpgAprovacao;
+        this.fpgTipoAcresDesc = fpgTipoAcresDesc;
+        this.fpgValor = fpgValor;
+        this.fpgDescricaoAcreDesc = fpgDescricaoAcreDesc;
     }
 }

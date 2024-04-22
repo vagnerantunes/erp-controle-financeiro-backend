@@ -34,25 +34,25 @@ public class ContatoCliente implements Serializable {
 
     @Getter
     @Setter
+    @Column(name = "CCL_TELEFONE_COMERCIAL", length = 55)
+    private String cclTelefoneComercial;
+
+    @Getter
+    @Setter
     @Column(length = 55, name = "CCL_EMAIL")
     private String cclEmail;
 
     @Getter
     @Setter
-    @Column(length = 10, name = "CCL_TIPO_REDE1")
-    private String cclTipoRede1;
+    @Column(length = 55, name = "CCL_EMAIL_SECUNDARIO")
+    private String cclEmailSecundario;
 
-    @Getter
-    @Setter
-    @Column(length = 55, name = "CCL_REDE_SOCIAL1")
-    private String cclRedeSocial1;
-
-    public ContatoCliente(Long cclId, Cliente cclCliId, String cclCelular, String cclEmail, String cclTipoRede1, String cclRedeSocial1) {
+    public ContatoCliente(Long cclId, Cliente cclCliId, String cclCelular, String cclTelefoneComercial, String cclEmail, String cclEmailSecundario) {
         this.cclId = cclId;
         this.cclCliId = cclCliId;
         this.cclCelular = cclCelular;
+        this.cclTelefoneComercial = cclTelefoneComercial;
         this.cclEmail = cclEmail;
-        this.cclTipoRede1 = cclTipoRede1;
-        this.cclRedeSocial1 = cclRedeSocial1;
+        this.cclEmailSecundario = cclEmailSecundario;
     }
 }

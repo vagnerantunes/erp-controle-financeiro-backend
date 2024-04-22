@@ -78,9 +78,9 @@ public class ClienteService {
             // Atualiza o contato
             ContatoCliente contato = entity.getContatoClientes().get(0); // Assumindo que há apenas um contato por cliente
             contato.setCclCelular(objDto.getCclCelular());
+            contato.setCclTelefoneComercial(objDto.getCclTelefoneComercial());
             contato.setCclEmail(objDto.getCclEmail());
-            contato.setCclTipoRede1(objDto.getCclTipoRede1());
-            contato.setCclRedeSocial1(objDto.getCclRedeSocial1());
+            contato.setCclEmailSecundario(objDto.getCclEmailSecundario());
 
             // Salva as alterações
             repository.save(entity);
@@ -108,8 +108,7 @@ public class ClienteService {
                 objDto.getEncBairro(), objDto.getEncCidade(), objDto.getEncCep(), objDto.getEncEstado(), objDto.getEncComplemento());
 
         ContatoCliente contatoCliente = new ContatoCliente(null, cliente, objDto.getCclCelular(),
-                objDto.getCclEmail(),
-                objDto.getCclTipoRede1(), objDto.getCclRedeSocial1());
+                objDto.getCclTelefoneComercial(), objDto.getCclEmail(), objDto.getCclEmailSecundario());
 
         cliente.getEnderecoClientes().add(enderecoCliente);
         cliente.getContatoClientes().add(contatoCliente);
@@ -142,9 +141,9 @@ public class ClienteService {
         // Atributos específicos de Contato
         ContatoCliente contatoFornecedor = obj.getContatoClientes().get(0);
         dto.setCclCelular(contatoFornecedor.getCclCelular());
+        dto.setCclTelefoneComercial(contatoFornecedor.getCclTelefoneComercial());
         dto.setCclEmail(contatoFornecedor.getCclEmail());
-        dto.setCclTipoRede1(contatoFornecedor.getCclTipoRede1());
-        dto.setCclRedeSocial1(contatoFornecedor.getCclRedeSocial1());
+        dto.setCclEmailSecundario(contatoFornecedor.getCclEmailSecundario());
 
         return dto;
     }

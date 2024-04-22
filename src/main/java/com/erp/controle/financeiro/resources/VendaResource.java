@@ -3,17 +3,14 @@ package com.erp.controle.financeiro.resources;
 import java.util.List;
 import java.util.Optional;
 
-import com.erp.controle.financeiro.entities.Produto;
-import com.erp.controle.financeiro.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.erp.controle.financeiro.entities.Venda;
 import com.erp.controle.financeiro.services.VendaService;
 
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/vendas")

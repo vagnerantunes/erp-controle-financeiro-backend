@@ -46,10 +46,11 @@ public class ClienteNewDTO implements Serializable {
     @Pattern(regexp = "^\\(\\d{2}\\) \\d{5}-\\d{4}$", message = "O celular deve seguir o formato (99) 99999-9999")
     @NotEmpty(message = "Preenchimento obrigatório")
     private String cclCelular;
+    private String cclTelefoneComercial;
     @Email
     private String cclEmail;
-    private String cclTipoRede1;
-    private String cclRedeSocial1;
+    @Email
+    private String cclEmailSecundario;
     public ClienteNewDTO() {
     }
 

@@ -39,8 +39,9 @@ public class FormaPagamentoService {
 			fpagamento.setFpgDescricao(formaPagamento.getFpgDescricao());
 			fpagamento.setFpgTipo(formaPagamento.getFpgTipo());
 			fpagamento.setFpgQtdParcela(formaPagamento.getFpgQtdParcela());
-			fpagamento.setFpgPorcentagemDesconto(formaPagamento.getFpgPorcentagemDesconto());
-			fpagamento.setFpgPorcentagemAcrescimo(formaPagamento.getFpgPorcentagemAcrescimo());
+			fpagamento.setFpgAprovacao(formaPagamento.getFpgAprovacao());
+			fpagamento.setFpgTipoAcresDesc(formaPagamento.getFpgTipoAcresDesc());
+			fpagamento.setFpgValor(formaPagamento.getFpgValor());
 			fpagamento.setFpgFlag(formaPagamento.getFpgFlag());
 			repository.save(fpagamento);
 			return true;
