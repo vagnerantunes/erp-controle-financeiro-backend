@@ -64,13 +64,18 @@ public class FormaPagamento implements Serializable {
 
     @Getter
     @Setter
+    @Column(name = "FPG_DESCRICAO_ACRES_DESC")
+    private String fpgDescricaoAcreDesc;
+
+    @Getter
+    @Setter
     @Column(name = "FPG_VALOR")
     private Double fpgValor;
 
     @Getter
     @Setter
-    @Column(name = "FPG_DESCRICAO_ACRES_DESC")
-    private String fpgDescricaoAcreDesc;
+    @Column(name = "FPG_PORCENTAGEM")
+    private Double fpgPorcentagem;
 
     @Getter
     @Setter
@@ -80,14 +85,15 @@ public class FormaPagamento implements Serializable {
         super();
     }
 
-    public FormaPagamento(Long fpgId, @NotNull String fpgDescricao, @NotNull String fpgTipo, @NotNull Integer fpgQtdParcela, @NotNull String fpgAprovacao, String fpgTipoAcresDesc, Double fpgValor, String fpgDescricaoAcreDesc) {
+    public FormaPagamento(Long fpgId, @NotNull String fpgDescricao, @NotNull String fpgTipo, @NotNull Integer fpgQtdParcela, @NotNull String fpgAprovacao, String fpgTipoAcresDesc, String fpgDescricaoAcreDesc,Double fpgValor, Double fpgPorcentagem) {
         this.fpgId = fpgId;
         this.fpgDescricao = fpgDescricao;
         this.fpgTipo = fpgTipo;
         this.fpgQtdParcela = fpgQtdParcela;
         this.fpgAprovacao = fpgAprovacao;
         this.fpgTipoAcresDesc = fpgTipoAcresDesc;
-        this.fpgValor = fpgValor;
         this.fpgDescricaoAcreDesc = fpgDescricaoAcreDesc;
+        this.fpgPorcentagem = fpgPorcentagem;
+        this.fpgValor = fpgValor;
     }
 }
