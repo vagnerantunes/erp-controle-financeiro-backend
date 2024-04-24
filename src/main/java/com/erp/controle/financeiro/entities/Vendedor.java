@@ -25,12 +25,22 @@ public class Vendedor implements Serializable {
 
     @Getter
     @Setter
-    @Column(length = 20, name = "VND_CARGO")
+    @Column(length = 20, name = "VND_CARGO", nullable = false)
     private String vndCargo;
 
     @Getter
     @Setter
-    @Column(length = 20, name = "VND_STATUS")
+    @Column(length = 15, name = "VND_NIVEL")
+    private String vndNivel;
+
+    @Getter
+    @Setter
+    @Column(name = "VND_META")
+    private Double vndMeta;
+
+    @Getter
+    @Setter
+    @Column(length = 9, name = "VND_STATUS")
     private String vndStatus  = "ATIVO";
 
     @Getter
@@ -39,11 +49,13 @@ public class Vendedor implements Serializable {
     private String vndObs;
     public Vendedor() {
     }
-    public Vendedor(Long vndId, String vndNome, String vndCargo, String vndObs) {
+
+    public Vendedor(Long vndId, String vndNome, String vndCargo, Double vndMeta, String vndNivel, String vndObs) {
         this.vndId = vndId;
         this.vndNome = vndNome;
         this.vndCargo = vndCargo;
+        this.vndNivel = vndNivel;
+        this.vndMeta = vndMeta;
         this.vndObs = vndObs;
     }
-
 }

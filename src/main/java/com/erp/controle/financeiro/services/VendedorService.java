@@ -40,6 +40,8 @@ public class VendedorService {
             Vendedor vendedor1 = optional.get();
             vendedor1.setVndNome(vendedor.getVndNome());
             vendedor1.setVndCargo(vendedor.getVndCargo());
+            vendedor1.setVndNivel(vendedor.getVndNivel());
+            vendedor1.setVndMeta(vendedor.getVndMeta());
             vendedor1.setVndStatus(vendedor.getVndStatus());
             vendedor1.setVndObs(vendedor.getVndObs());
             repository.save(vendedor1);
