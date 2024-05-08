@@ -68,12 +68,13 @@ public class VendaService {
 
     private void updateData(Venda entity, Venda obj) {
         entity.setCliente(obj.getCliente());
-        entity.setFpagamento(obj.getFpagamento());
         entity.setVendedor(obj.getVendedor());
+        entity.setFpagamento(obj.getFpagamento());
         entity.setVenData(obj.getVenData());
         entity.setVenDesconto(obj.getVenDesconto());
-        entity.setVenJuros(obj.getVenJuros());
+        entity.setVenAcrescimo(obj.getVenAcrescimo());
         entity.setVenStatus(obj.getVenStatus());
+        entity.setVenTipo(obj.getVenTipo());
     }
 
     public void delete(Long id) {

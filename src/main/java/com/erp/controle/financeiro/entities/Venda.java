@@ -35,15 +35,15 @@ public class Venda implements Serializable{
 	@Getter
 	@Setter
 	@ManyToOne
-	@JoinColumn(name="fpagamento_id")
-	private FormaPagamento fpagamento;
+	@JoinColumn(name="vendedor_id")
+	private Vendedor vendedor;
 
 	@Getter
 	@Setter
 	@ManyToOne
-	@JoinColumn(name="vendedor_id")
-	private Vendedor vendedor;
-	
+	@JoinColumn(name="fpagamento_id")
+	private FormaPagamento fpagamento;
+
 	@Getter
 	@Setter
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
@@ -57,24 +57,32 @@ public class Venda implements Serializable{
 	
 	@Getter
 	@Setter
-	@Column(name = "VEN_JUROS")
-	private Double venJuros;
+	@Column(name = "VEN_ACRESCIMO")
+	private Double venAcrescimo;
 
+	//pendente, finalizado, cancelado
 	@Getter
 	@Setter
 	@Column(name = "VEN_STATUS")
 	private String venStatus;
+
+	//orcamento, pedido
+	@Getter
+	@Setter
+	@Column(name = "VEN_TIPO")
+	private String venTipo;
 	public Venda() {
 	}
 	public Venda(Long venId, Cliente cliente, FormaPagamento fpagamento, Vendedor vendedor,
-				 Double venDesconto, Double venJuros, String venStatus) {
+				 Double venDesconto, Double venAcrescimo, String venStatus, String venTipo) {
 		this.venId = venId;
 		this.cliente = cliente;
 		this.fpagamento = fpagamento;
 		this.vendedor = vendedor;
 		this.venDesconto = venDesconto;
-		this.venJuros = venJuros;
+		this.venAcrescimo = venAcrescimo;
 		this.venStatus = venStatus;
+		this.venTipo = venTipo;
 	}
 
 	public Double getTotalVenda() {
@@ -82,7 +90,7 @@ public class Venda implements Serializable{
 		for (ItemVenda x : itens) {
 			sum = sum + x.getTotalVenda();
 		}
-		sum = ((sum + venJuros) - venDesconto);
+		sum = ((sum + venAcrescimo) - venDesconto);
 		return sum;
 	}
 
