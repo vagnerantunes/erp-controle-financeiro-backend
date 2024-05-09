@@ -45,17 +45,17 @@ public class VendaService {
         obj.setCliente(clienteService.findById(obj.getCliente().getCliId()));
         obj = repository.save(obj);
 
-        for (ItemVenda iv : obj.getItens()){
-            // no findById de produto é preciso ter o ObjectNotFoundException
-            iv.setProduto(produtoService.findById(iv.getProduto().getProId()));
-            /*iv.setItvQtd(0.0); para gravar um valor que o usuário digitar, não coloque nada no serviço como nesse caso da qtd
-            //caso queira que o usuário digite o valor de venda e custo somente abaixo os dois campos
-            */
-            iv.setItvPrecoVenda(iv.getProduto().getProPrecoVenda());
-            iv.setItvPrecoCusto(iv.getProduto().getProPrecoCusto());
-            iv.setVenda(obj);
-        }
-        itemVendaRepository.saveAll(obj.getItens());
+//        for (ItemVenda iv : obj.getItens()){
+//            // no findById de produto é preciso ter o ObjectNotFoundException
+//            iv.setProduto(produtoService.findById(iv.getProduto().getProId()));
+//            /*iv.setItvQtd(0.0); para gravar um valor que o usuário digitar, não coloque nada no serviço como nesse caso da qtd
+//            //caso queira que o usuário digite o valor de venda e custo somente abaixo os dois campos
+//            */
+//            iv.setItvPrecoVenda(iv.getProduto().getProPrecoVenda());
+//            iv.setItvPrecoCusto(iv.getProduto().getProPrecoCusto());
+//            iv.setVenda(obj);
+//        }
+//        itemVendaRepository.saveAll(obj.getItens());
         return obj;
     }
 

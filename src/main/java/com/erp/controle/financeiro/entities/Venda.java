@@ -21,10 +21,10 @@ public class Venda implements Serializable{
 	@Column(name = "VEN_ID")
 	private Long venId;
 	
-	@Getter
-	@Setter
-	@OneToMany(mappedBy = "id.venda")
-	private Set<ItemVenda> itens = new HashSet<>();
+//	@Getter
+//	@Setter
+//	@OneToMany(mappedBy = "id.venda")
+//	private Set<ItemVenda> itens = new HashSet<>();
 
 	@Getter
 	@Setter
@@ -85,20 +85,19 @@ public class Venda implements Serializable{
 		this.venTipo = venTipo;
 	}
 
-	public Double getTotalVenda() {
-		Double sum = 0.0;
-		for (ItemVenda x : itens) {
-			sum = sum + x.getTotalVenda();
-		}
-		sum = ((sum + venAcrescimo) - venDesconto);
-		return sum;
-	}
-
-	public Double getTotalCusto() {
-		Double sum = 0.0;
-		for (ItemVenda x : itens) {
-			sum = sum + x.getTotalCusto();
-		}
-		return sum;
-	}
+//	public Double getTotalVenda() {
+//		Double sum = 0.0;
+//		for (ItemVenda x : itens) {
+//			sum = sum + x.getTotalVenda();
+//		}
+//		return sum;
+//	}
+//
+//	public Double getTotalCusto() {
+//		Double sum = 0.0;
+//		for (ItemVenda x : itens) {
+//			sum = sum + x.getTotalCusto();
+//		}
+//		return sum;
+//	}
 }
